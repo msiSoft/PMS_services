@@ -141,16 +141,16 @@ namespace sqlBase
             }
         }
         /*Insert or update Running Hour in running hour related tables*/
-        public void SetRH()
-        {
-            try
-            {
-                OleDbHelper.updSrcDb("INSERT INTO PMS.RH_ENTRY (EQ_CODE) VALUES('2222')");
-            }
-            catch(Exception exc)
-            {
+        //public void SetRH()
+        //{
+        //    try
+        //    {
+        //        OleDbHelper.updSrcDb("INSERT INTO PMS.RH_ENTRY (EQ_CODE) VALUES('2222')");
+        //    }
+        //    catch(Exception exc)
+        //    {
 
-            }
-        }
+        //    }
+        //}
     }
 }
