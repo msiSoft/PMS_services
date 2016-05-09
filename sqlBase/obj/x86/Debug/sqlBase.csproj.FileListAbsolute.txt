@@ -1,0 +1,10 @@
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\bin\x86\Debug\Program.cs
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\bin\x86\Debug\Sql.ini
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\bin\x86\Debug\sqlBase.exe.config
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\bin\x86\Debug\sqlBase.exe
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\bin\x86\Debug\sqlBase.pdb
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\bin\x86\Debug\System.Net.Http.dll
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\bin\x86\Debug\System.Net.Http.xml
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\obj\x86\Debug\sqlBase.exe
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\obj\x86\Debug\sqlBase.pdb
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\obj\x86\Debug\sqlBase.csprojResolveAssemblyReference.cache

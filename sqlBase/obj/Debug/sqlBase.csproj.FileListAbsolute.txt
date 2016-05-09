@@ -1,0 +1,6 @@
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\bin\Debug\sqlBase.exe.config
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\bin\Debug\sqlBase.exe
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\bin\Debug\sqlBase.pdb
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\obj\Debug\sqlBase.exe
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\obj\Debug\sqlBase.pdb
+E:\Asp.net\sbn\POC\sqlBase\sqlBase\obj\Debug\sqlBase.csprojResolveAssemblyReference.cache
