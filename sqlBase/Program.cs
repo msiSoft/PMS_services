@@ -14,6 +14,11 @@ namespace sqlBase
         {
             ZonesAndEquipments ZE = new ZonesAndEquipments();
             ZE.GetEquipments("400.0000000024");
+            Common MasterData = new Common();
+            MasterData.GetAllVendorNames("400.0000000024");// Get all the available vendors for the vessel
+            Purchase PR = new Purchase();
+            PR.GetPONumbers("400.0000000024"); // Get all the PO numbers for the vessel
+            PR.GetAllPODetails("400.0000000024"); // Get all the item details for the vessel
         }
         public static void Method2Ins()
         {
