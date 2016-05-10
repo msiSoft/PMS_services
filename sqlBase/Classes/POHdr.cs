@@ -14,5 +14,8 @@ namespace sqlBase.Classes
         public int challan_number { get; set; }
         public  DateTime receipt_date { get; set; }
         public string remarks { get; set; }
+        public DateTime data_entered_date { get; set; }
+        public string data_entered_by { get; set; }
+        public bool is_updated_on_server { get; set; }
     }
 }
