@@ -27,7 +27,7 @@ namespace sqlBase
             string p_vslcode = "'COMMON'";
             string vslcode = "400.0000000024";
             string strInitial, strPrefix;
-            //OperationsOnSourcecDB(" UPDATE PURCHASE.lastcodes SET grv_no = grv_no + 1 WHERE p_vslcode =" +  p_vslcode );
+            //OperationsOnSourcecDB("UPDATE PURCHASE.lastcodes SET grv_no = grv_no + 1 WHERE p_vslcode =" +  p_vslcode );
 
             //OperationsOnSourcecDB("UPDATE PURCHASE.lastcodes SET agrv_no = agrv_no + 1 WHERE p_vslcode = " + vslcode);
 
@@ -50,8 +50,28 @@ namespace sqlBase
             {
                 strPrefix ="";
             }
-            string Suffix = (string)ExecuteScalarOnSourcecDB("SELECT GRV_SUFFIX FROM PURCHASE.SETUP");
+            string strSuffix = (string)ExecuteScalarOnSourcecDB("SELECT GRV_SUFFIX FROM PURCHASE.SETUP");
+            string yr = DateTime.Now.Year.ToString ();
+            int l = strSuffix.Length;
+            int k=0;  
+            for (int i=0;i< l; i++)
+            {
+                if (strSuffix .Substring (i,1)=="Y")
+                {
+                    k++;
+                }
+            }
+            if (k == 2)
+            {
+                yr = yr.Substring(2, 2);
+                strSuffix = strSuffix.Replace("YY", yr);
 
+            }
+            else if (k==4)
+                strSuffix = strSuffix.Replace("YYYY", yr);
+
+            string grvno_auto = "F" + grv_no;
+            string cgrv_no = strInitial + strPrefix +grv_no+strSuffix;
         }
         public static void Method2Ins()
         {
