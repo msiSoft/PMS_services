@@ -19,6 +19,59 @@ namespace sqlBase
             Purchase PR = new Purchase();
             PR.GetPONumbers("400.0000000024"); // Get all the PO numbers for the vessel
             PR.GetAllPODetails("400.0000000024"); // Get all the item details for the vessel
+            KeyGenForInsert();
+
+        }
+        public static void KeyGenForInsert()
+        {
+            string p_vslcode = "'COMMON'";
+            string vslcode = "400.0000000024";
+            string strInitial, strPrefix;
+            //OperationsOnSourcecDB("UPDATE PURCHASE.lastcodes SET grv_no = grv_no + 1 WHERE p_vslcode =" +  p_vslcode );
+
+            //OperationsOnSourcecDB("UPDATE PURCHASE.lastcodes SET agrv_no = agrv_no + 1 WHERE p_vslcode = " + vslcode);
+
+            int grv_no = (int)ExecuteScalarOnSourcecDB("SELECT grv_no FROM PURCHASE.lastcodes WHERE p_vslcode = " + p_vslcode);
+            int agrv_no = (int)ExecuteScalarOnSourcecDB("SELECT agrv_no FROM PURCHASE.lastcodes WHERE p_vslcode =" + vslcode);
+
+            if (ExecuteScalarOnSourcecDB("SELECT INITIAL FROM PMS.PMS_VESSELMF WHERE VSLCODE =" + vslcode + " AND P_LATEST = 1 AND UPDFLAG <> 'D'") != DBNull.Value)
+            {
+                strInitial = (string)ExecuteScalarOnSourcecDB("SELECT INITIAL FROM PMS.PMS_VESSELMF WHERE VSLCODE =" + vslcode + " AND P_LATEST = 1 AND UPDFLAG <> 'D'");
+            }
+            else
+            {
+                strInitial = "";
+            }
+            if (ExecuteScalarOnSourcecDB("SELECT GRV_PREFIX FROM PURCHASE.SETUP")!=DBNull.Value )
+            {
+                strPrefix= (string)ExecuteScalarOnSourcecDB("SELECT GRV_PREFIX FROM PURCHASE.SETUP");
+            }
+            else
+            {
+                strPrefix ="";
+            }
+            string strSuffix = (string)ExecuteScalarOnSourcecDB("SELECT GRV_SUFFIX FROM PURCHASE.SETUP");
+            string yr = DateTime.Now.Year.ToString ();
+            int l = strSuffix.Length;
+            int k=0;  
+            for (int i=0;i< l; i++)
+            {
+                if (strSuffix .Substring (i,1)=="Y")
+                {
+                    k++;
+                }
+            }
+            if (k == 2)
+            {
+                yr = yr.Substring(2, 2);
+                strSuffix = strSuffix.Replace("YY", yr);
+
+            }
+            else if (k==4)
+                strSuffix = strSuffix.Replace("YYYY", yr);
+
+            string grvno_auto = "F" + grv_no;
+            string cgrv_no = strInitial + strPrefix +grv_no+strSuffix;
         }
         public static void Method2Ins()
         {
@@ -50,5 +103,25 @@ namespace sqlBase
                 throw;
             }
         }
-    }
+            public static object  ExecuteScalarOnSourcecDB(string qry)
+             {
+                object res;
+                try
+                {
+                    OleDbHelper sourcedb = new OleDbHelper();
+
+                    sourcedb.createCommand();
+                    sourcedb.command.CommandText = qry;
+                    res = sourcedb.command.ExecuteScalar();
+                    sourcedb.commit();
+
+                    sourcedb = null;
+                    return res;
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+        }
 }
