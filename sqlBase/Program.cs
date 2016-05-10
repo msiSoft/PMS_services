@@ -19,10 +19,10 @@ namespace sqlBase
             Purchase PR = new Purchase();
             PR.GetPONumbers("400.0000000024"); // Get all the PO numbers for the vessel
             PR.GetAllPODetails("400.0000000024"); // Get all the item details for the vessel
-            gettingRdyForInsert();
+            KeyGenForInsert();
 
         }
-        public static void gettingRdyForInsert()
+        public static void KeyGenForInsert()
         {
             string p_vslcode = "'COMMON'";
             string vslcode = "400.0000000024";
