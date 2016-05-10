@@ -62,6 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\POFinal.cs" />
+    <Compile Include="Classes\POHdr.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="OleDbHelper.cs" />
     <Compile Include="Program.cs">
