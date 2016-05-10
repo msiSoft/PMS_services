@@ -15,11 +15,18 @@ namespace sqlBase
 
         public SqlBase_OleDb(string qry)
         {
-            string connStr = "Provider = SQLBASEOLEDB;Data Source=DBPURCHV;User Id=REPORT;Password=REPORT; ini=Sql.ini";
-            adptr          = new OleDbDataAdapter ( qry, connStr );
-            ds             = new DataSet ( );
+            try {
+                string connStr = "Provider = SQLBASEOLEDB;Data Source=DBPURCHV;User Id=REPORT;Password=REPORT; ini=Sql.ini";
+                adptr = new OleDbDataAdapter(qry, connStr);
+                ds = new DataSet();
 
-            adptr.Fill ( ds );
+                adptr.Fill(ds);
+            }
+            catch (Exception exc)
+            
+            {
+
+            }
         }
 
         public DataRow GetRow(int indx = 0)

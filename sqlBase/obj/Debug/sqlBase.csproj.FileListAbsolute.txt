@@ -4,3 +4,11 @@ E:\Asp.net\sbn\POC\sqlBase\sqlBase\bin\Debug\sqlBase.pdb
 E:\Asp.net\sbn\POC\sqlBase\sqlBase\obj\Debug\sqlBase.exe
 E:\Asp.net\sbn\POC\sqlBase\sqlBase\obj\Debug\sqlBase.pdb
 E:\Asp.net\sbn\POC\sqlBase\sqlBase\obj\Debug\sqlBase.csprojResolveAssemblyReference.cache
+E:\SBN\PMS_services\PMS_services\sqlBase\bin\Debug\sqlBase.exe.config
+E:\SBN\PMS_services\PMS_services\sqlBase\obj\Debug\sqlBase.exe
+E:\SBN\PMS_services\PMS_services\sqlBase\obj\Debug\sqlBase.pdb
+E:\SBN\PMS_services\PMS_services\sqlBase\bin\Debug\Program.cs
+E:\SBN\PMS_services\PMS_services\sqlBase\bin\Debug\Sql.ini
+E:\SBN\PMS_services\PMS_services\sqlBase\bin\Debug\sqlBase.exe
+E:\SBN\PMS_services\PMS_services\sqlBase\bin\Debug\sqlBase.pdb
+E:\SBN\PMS_services\PMS_services\sqlBase\obj\Debug\sqlBase.csprojResolveAssemblyReference.cache

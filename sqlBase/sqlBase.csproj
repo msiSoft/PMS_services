@@ -70,6 +70,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Purchase.cs" />
     <Compile Include="SqlBase_OleDb.cs" />
+    <Compile Include="Stock.cs" />
+    <Compile Include="TakeStockDisplay.cs" />
     <Compile Include="ZonesAndEquipments.cs" />
   </ItemGroup>
   <ItemGroup>
