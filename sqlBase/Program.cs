@@ -15,47 +15,47 @@ namespace sqlBase
 
         static void Main(string[] args)
         {
-            ZonesAndEquipments ZE = new ZonesAndEquipments();
-            ZE.GetEquipments("400.0000000024");
-            Common MasterData = new Common();
-            MasterData.GetAllVendorNames("400.0000000024");// Get all the available vendors for the vessel
-            Purchase PR = new Purchase();
-            PR.GetPONumbers("400.0000000024"); // Get all the PO numbers for the vessel
-            PR.GetAllPODetails("400.0000000024"); // Get all the item details for the vessel
-            //PR.ReceiveGoods();
+            //ZonesAndEquipments ZE = new ZonesAndEquipments();
+            //ZE.GetEquipments("400.0000000024");
+            //Common MasterData = new Common();
+            //MasterData.GetAllVendorNames("400.0000000024");// Get all the available vendors for the vessel
+            //Purchase PR = new Purchase();
+            //PR.GetPONumbers("400.0000000024"); // Get all the PO numbers for the vessel
+            //PR.GetAllPODetails("400.0000000024"); // Get all the item details for the vessel
+            ////PR.ReceiveGoods();
 
 
-            KeyGenForInsert();
+            //KeyGenForInsert();
 
-            //Declaring an object of purchase header class 
-            POHdr purchaseHdr = new POHdr();
+            ////Declaring an object of purchase header class 
+            //POHdr purchaseHdr = new POHdr();
 
-            // Assigning dummy values to purchase header class variables
-            purchaseHdr.po_number = "0000002254";
-            purchaseHdr.cpo_number = " AST002/P16";
-            purchaseHdr.vd_code = "0000000154";
-            purchaseHdr.po_date = "15-MAR-2016";
-            purchaseHdr.challan_number = 1234;
-            purchaseHdr.receipt_date = "15-MAR-2016";
-            purchaseHdr.remarks = "Test";
-            purchaseHdr.data_entered_date = "15-MAR-2016";
-            purchaseHdr.data_entered_by = "SBN";
-            purchaseHdr.is_updated_on_server = true;
-            // purchaseHdr.SavePurchaseHdr(vslcode,grvno_auto, cgrv_no,purchaseHdr);
+            //// Assigning dummy values to purchase header class variables
+            //purchaseHdr.po_number = "0000002254";
+            //purchaseHdr.cpo_number = " AST002/P16";
+            //purchaseHdr.vd_code = "0000000154";
+            //purchaseHdr.po_date = "15-MAR-2016";
+            //purchaseHdr.challan_number = 1234;
+            //purchaseHdr.receipt_date = "15-MAR-2016";
+            //purchaseHdr.remarks = "Test";
+            //purchaseHdr.data_entered_date = "15-MAR-2016";
+            //purchaseHdr.data_entered_by = "SBN";
+            //purchaseHdr.is_updated_on_server = true;
+            //// purchaseHdr.SavePurchaseHdr(vslcode,grvno_auto, cgrv_no,purchaseHdr);
 
-            //Declaring an object of purchase header class 
-            POFinal pdtl = new POFinal();
-            pdtl.po_number = "0000002254";
-            pdtl.item_code = "$BNT730102";
-            pdtl.requested_qty = 10;
-            pdtl.ordered_qty = 10;
-            pdtl.received_qty = 10;
-            pdtl.accepted_qty = 8;
-            pdtl.code_type = "S";
-            pdtl.data_entered_date = "15-MAR-2016";
-            pdtl.data_entered_by = "SBN";
-            pdtl.is_updated_on_server = true;
-            pdtl.SavePurchaseDtl(vslcode, grvno_auto, pdtl, purchaseHdr.vd_code);
+            ////Declaring an object of purchase header class 
+            //POFinal pdtl = new POFinal();
+            //pdtl.po_number = "0000002254";
+            //pdtl.item_code = "$BNT730102";
+            //pdtl.requested_qty = 10;
+            //pdtl.ordered_qty = 10;
+            //pdtl.received_qty = 10;
+            //pdtl.accepted_qty = 8;
+            //pdtl.code_type = "S";
+            //pdtl.data_entered_date = "15-MAR-2016";
+            //pdtl.data_entered_by = "SBN";
+            //pdtl.is_updated_on_server = true;
+            //pdtl.SavePurchaseDtl(vslcode, grvno_auto, pdtl, purchaseHdr.vd_code);
 
             //for Take Stock
             //TakeStockDisplay TD = new TakeStockDisplay();
@@ -64,29 +64,43 @@ namespace sqlBase
             //TD.GetStock("400.0000000024");
 
             //Save
-            Stock UPDS = new Stock();
+            //Stock UPDS = new Stock();
 
-            UPDS.rob_qty = "10";
-            UPDS.trans_type_code = "00004";
-            UPDS.data_entered_by = "#SBNT";
-            UPDS.data_entered_date = "11-MAY-2016 09:34:17";
-            UPDS.total_in = "1";
-            UPDS.updflag = "C";
-            UPDS.item_code = "UNIX.00015138";
-            UPDS.vessel_code = "400.0000000024";
-            UPDS.trans_no = "AST.0000000025";
-            UPDS.ctrans_no = "0025/TR16";
-            UPDS.trans_date = "11-MAY-2016 09:34:17";
-            UPDS.trans_from = "PS";
-            UPDS.trans_qty = "10";
-            UPDS.plan_qty = "0";
-            UPDS.im_rem = "";
-            UPDS.trans_rem = "";
-            UPDS.code_type = "S";
+            //UPDS.rob_qty = "10";
+            //UPDS.trans_type_code = "00004";
+            //UPDS.data_entered_by = "#SBNT";
+            //UPDS.data_entered_date = "11-MAY-2016 09:34:17";
+            //UPDS.total_in = "1";
+            //UPDS.updflag = "C";
+            //UPDS.item_code = "UNIX.00015138";
+            //UPDS.vessel_code = "400.0000000024";
+            //UPDS.trans_no = "AST.0000000025";
+            //UPDS.ctrans_no = "0025/TR16";
+            //UPDS.trans_date = "11-MAY-2016 09:34:17";
+            //UPDS.trans_from = "PS";
+            //UPDS.trans_qty = "10";
+            //UPDS.plan_qty = "0";
+            //UPDS.im_rem = "";
+            //UPDS.trans_rem = "";
+            //UPDS.code_type = "S";
 
             //UPDS.SaveStockUpd(UPDS);
-            // UPDS.SaveStockInsertHd(UPDS);
-            UPDS.SaveStockInsertTd(UPDS);
+            //UPDS.SaveStockInsertHd(UPDS);
+            //UPDS.SaveStockInsertTd(UPDS);
+
+            // Requisition
+            // RequisitionSelect RS = new RequisitionSelect();
+            // RS.GetLastCodes("COMMON");
+            // RS.GetIndDt("400.0000000024");
+            // RS.GetIndHd("400.0000000024");
+
+            RequisitionSave RS = new RequisitionSave();
+
+            RS.aid_no = "0";
+            RS.id_no = "2";
+            RS.eq_number = " 50000";
+
+            RS.SaveRequisitionUpd(RS);
 
         }
 
