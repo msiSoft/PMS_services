@@ -8,11 +8,11 @@ E:\Asp.net\sbn\POC\sqlBase\sqlBase\bin\x86\Debug\System.Net.Http.xml
 E:\Asp.net\sbn\POC\sqlBase\sqlBase\obj\x86\Debug\sqlBase.exe
 E:\Asp.net\sbn\POC\sqlBase\sqlBase\obj\x86\Debug\sqlBase.pdb
 E:\Asp.net\sbn\POC\sqlBase\sqlBase\obj\x86\Debug\sqlBase.csprojResolveAssemblyReference.cache
-E:\SBN\PMS_services\PMS_services\sqlBase\bin\x86\Debug\sqlBase.exe.config
-E:\SBN\PMS_services\PMS_services\sqlBase\obj\x86\Debug\sqlBase.exe
-E:\SBN\PMS_services\PMS_services\sqlBase\obj\x86\Debug\sqlBase.pdb
-E:\SBN\PMS_services\PMS_services\sqlBase\bin\x86\Debug\Sql.ini
 E:\SBN\PMS_services\PMS_services\sqlBase\bin\x86\Debug\Program.cs
+E:\SBN\PMS_services\PMS_services\sqlBase\bin\x86\Debug\Sql.ini
+E:\SBN\PMS_services\PMS_services\sqlBase\bin\x86\Debug\sqlBase.exe.config
 E:\SBN\PMS_services\PMS_services\sqlBase\bin\x86\Debug\sqlBase.exe
 E:\SBN\PMS_services\PMS_services\sqlBase\bin\x86\Debug\sqlBase.pdb
+E:\SBN\PMS_services\PMS_services\sqlBase\obj\x86\Debug\sqlBase.exe
+E:\SBN\PMS_services\PMS_services\sqlBase\obj\x86\Debug\sqlBase.pdb
 E:\SBN\PMS_services\PMS_services\sqlBase\obj\x86\Debug\sqlBase.csprojResolveAssemblyReference.cache
