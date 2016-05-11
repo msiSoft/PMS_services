@@ -27,38 +27,43 @@ namespace sqlBase
             //TD.GetSpareItems("400.0000000024");
             //TD.GetStock("400.0000000024");
 
-            //Save
-            Stock UPDS = new Stock();
+            // //Save
+            // Stock UPDS = new Stock();
 
-            UPDS.rob_qty = "10";
-            UPDS.trans_type_code = "00004";
-            UPDS.data_entered_by = "#SBNT";
-            UPDS.data_entered_date = "11-MAY-2016 09:34:17";
-            UPDS.total_in = "1";
-            UPDS.updflag = "C";
-            UPDS.item_code = "UNIX.00015138";
-            UPDS.vessel_code = "400.0000000024";
-            UPDS.trans_no = "AST.0000000025";
-            UPDS.ctrans_no = "0025/TR16";
-            UPDS.trans_date = "11-MAY-2016 09:34:17";
-            UPDS.trans_from = "PS";
-            UPDS.trans_qty = "10";
-            UPDS.plan_qty = "0";
-            UPDS.im_rem = "";
-            UPDS.trans_rem = "";
-            UPDS.code_type = "S";
+            // UPDS.rob_qty = "10";
+            // UPDS.trans_type_code = "00004";
+            // UPDS.data_entered_by = "#SBNT";
+            // UPDS.data_entered_date = "11-MAY-2016 09:34:17";
+            // UPDS.total_in = "1";
+            // UPDS.updflag = "C";
+            // UPDS.item_code = "UNIX.00015138";
+            // UPDS.vessel_code = "400.0000000024";
+            // UPDS.trans_no = "AST.0000000025";
+            // UPDS.ctrans_no = "0025/TR16";
+            // UPDS.trans_date = "11-MAY-2016 09:34:17";
+            // UPDS.trans_from = "PS";
+            // UPDS.trans_qty = "10";
+            // UPDS.plan_qty = "0";
+            // UPDS.im_rem = "";
+            // UPDS.trans_rem = "";
+            // UPDS.code_type = "S";
 
-            //UPDS.SaveStockUpd(UPDS);
-           // UPDS.SaveStockInsertHd(UPDS);
-            UPDS.SaveStockInsertTd(UPDS);
+            // //UPDS.SaveStockUpd(UPDS);
+            //// UPDS.SaveStockInsertHd(UPDS);
+            // UPDS.SaveStockInsertTd(UPDS);
 
+            //requisition
+            RequisitionSelect RS = new RequisitionSelect();
+            //RS.GetLastCodes("COMMON");
+            //RS.GetIndDt("400.0000000024");
+            //RS.GetIndHd("400.0000000024");
         }
         public static void KeyGenForInsert()
         {
             string p_vslcode = "'COMMON'";
             string vslcode = "400.0000000024";
             string strInitial, strPrefix;
-            OperationsOnSourcecDB("UPDATE PURCHASE.lastcodes SET grv_no = grv_no + 1 WHERE p_vslcode =" +  p_vslcode );
+            //OperationsOnSourcecDB("UPDATE PURCHASE.lastcodes SET grv_no = grv_no + 1 WHERE p_vslcode =" +  p_vslcode );
 
             //OperationsOnSourcecDB("UPDATE PURCHASE.lastcodes SET agrv_no = agrv_no + 1 WHERE p_vslcode = " + vslcode);
 
