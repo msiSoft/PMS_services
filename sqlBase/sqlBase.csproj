@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Purchase.cs" />
+    <Compile Include="RequisitionSelect.cs" />
     <Compile Include="SqlBase_OleDb.cs" />
     <Compile Include="Stock.cs" />
     <Compile Include="TakeStockDisplay.cs" />
