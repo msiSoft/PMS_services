@@ -62,26 +62,26 @@ namespace sqlBase
 
             //OperationsOnSourcecDB("UPDATE PURCHASE.lastcodes SET agrv_no = agrv_no + 1 WHERE p_vslcode = " + vslcode);
 
-            int grv_no = (int)ExecuteScalarOnSourcecDB("SELECT grv_no FROM PURCHASE.lastcodes WHERE p_vslcode = " + p_vslcode);
-            int agrv_no = (int)ExecuteScalarOnSourcecDB("SELECT agrv_no FROM PURCHASE.lastcodes WHERE p_vslcode =" + vslcode);
+            int grv_no = (int)ExecuteScalarOnSourceDB("SELECT grv_no FROM PURCHASE.lastcodes WHERE p_vslcode = " + p_vslcode);
+            int agrv_no = (int)ExecuteScalarOnSourceDB("SELECT agrv_no FROM PURCHASE.lastcodes WHERE p_vslcode =" + vslcode);
 
-            if (ExecuteScalarOnSourcecDB("SELECT INITIAL FROM PMS.PMS_VESSELMF WHERE VSLCODE =" + vslcode + " AND P_LATEST = 1 AND UPDFLAG <> 'D'") != DBNull.Value)
+            if (ExecuteScalarOnSourceDB("SELECT INITIAL FROM PMS.PMS_VESSELMF WHERE VSLCODE =" + vslcode + " AND P_LATEST = 1 AND UPDFLAG <> 'D'") != DBNull.Value)
             {
-                strInitial = (string)ExecuteScalarOnSourcecDB("SELECT INITIAL FROM PMS.PMS_VESSELMF WHERE VSLCODE =" + vslcode + " AND P_LATEST = 1 AND UPDFLAG <> 'D'");
+                strInitial = (string)ExecuteScalarOnSourceDB("SELECT INITIAL FROM PMS.PMS_VESSELMF WHERE VSLCODE =" + vslcode + " AND P_LATEST = 1 AND UPDFLAG <> 'D'");
             }
             else
             {
                 strInitial = "";
             }
-            if (ExecuteScalarOnSourcecDB("SELECT GRV_PREFIX FROM PURCHASE.SETUP")!=DBNull.Value )
+            if (ExecuteScalarOnSourceDB("SELECT GRV_PREFIX FROM PURCHASE.SETUP")!=DBNull.Value )
             {
-                strPrefix= (string)ExecuteScalarOnSourcecDB("SELECT GRV_PREFIX FROM PURCHASE.SETUP");
+                strPrefix= (string)ExecuteScalarOnSourceDB("SELECT GRV_PREFIX FROM PURCHASE.SETUP");
             }
             else
             {
                 strPrefix ="";
             }
-            string strSuffix = (string)ExecuteScalarOnSourcecDB("SELECT GRV_SUFFIX FROM PURCHASE.SETUP");
+            string strSuffix = (string)ExecuteScalarOnSourceDB("SELECT GRV_SUFFIX FROM PURCHASE.SETUP");
             string yr = DateTime.Now.Year.ToString ();
             int l = strSuffix.Length;
             int k=0;  
@@ -106,11 +106,11 @@ namespace sqlBase
         }
         public static void Method2Ins()
         {
-            OperationsOnSourcecDB("INSERT INTO PMS.SETUP (CODE_PREFIX) VALUES ('TEST')");
+            OperationsOnSourceDB("INSERT INTO PMS.SETUP (CODE_PREFIX) VALUES ('TEST')");
           //  Method2DisplayRowCount("insertion");
 
         }
-        public static int OperationsOnSourcecDB(string qry)
+        public static int OperationsOnSourceDB(string qry)
         {
             int res = 0;
 
@@ -134,7 +134,7 @@ namespace sqlBase
                 throw;
             }
         }
-            public static object  ExecuteScalarOnSourcecDB(string qry)
+            public static object  ExecuteScalarOnSourceDB(string qry)
              {
                 object res;
                 try
