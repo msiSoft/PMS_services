@@ -28,6 +28,15 @@ namespace sqlBase
                 
            
 
+
+
+
+
+
+
+
+
+
         public void SaveStockUpd(Stock stock)
 
         {
