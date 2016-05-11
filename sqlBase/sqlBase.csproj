@@ -74,6 +74,7 @@
     <Compile Include="SqlBase_OleDb.cs" />
     <Compile Include="Stock.cs" />
     <Compile Include="TakeStockDisplay.cs" />
+    <Compile Include="Update_Insert.cs" />
     <Compile Include="ZonesAndEquipments.cs" />
   </ItemGroup>
   <ItemGroup>
