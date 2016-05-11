@@ -65,6 +65,7 @@
     <Compile Include="Classes\POFinal.cs" />
     <Compile Include="Classes\POHdr.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="DBOperations.cs" />
     <Compile Include="OleDbHelper.cs" />
     <Compile Include="Program.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
