@@ -12,14 +12,45 @@ namespace sqlBase
     {
         static void Main(string[] args)
         {
-            ZonesAndEquipments ZE = new ZonesAndEquipments();
-            ZE.GetEquipments("400.0000000024");
-            Common MasterData = new Common();
-            MasterData.GetAllVendorNames("400.0000000024");// Get all the available vendors for the vessel
-            Purchase PR = new Purchase();
-            PR.GetPONumbers("400.0000000024"); // Get all the PO numbers for the vessel
-            PR.GetAllPODetails("400.0000000024"); // Get all the item details for the vessel
-            KeyGenForInsert();
+            //ZonesAndEquipments ZE = new ZonesAndEquipments();
+            //ZE.GetEquipments("400.0000000024");
+            //Common MasterData = new Common();
+            //MasterData.GetAllVendorNames("400.0000000024");// Get all the available vendors for the vessel
+            //Purchase PR = new Purchase();
+            //PR.GetPONumbers("400.0000000024"); // Get all the PO numbers for the vessel
+            //PR.GetAllPODetails("400.0000000024"); // Get all the item details for the vessel
+            //KeyGenForInsert();
+
+            //for Take Stock
+            //TakeStockDisplay TD = new TakeStockDisplay();
+            //TD.GetStoreItems('I');
+            //TD.GetSpareItems("400.0000000024");
+            //TD.GetStock("400.0000000024");
+
+            //Save
+            Stock UPDS = new Stock();
+
+            UPDS.rob_qty = "10";
+            UPDS.trans_type_code = "00004";
+            UPDS.data_entered_by = "#SBNT";
+            UPDS.data_entered_date = "11-MAY-2016 09:34:17";
+            UPDS.total_in = "1";
+            UPDS.updflag = "C";
+            UPDS.item_code = "UNIX.00015138";
+            UPDS.vessel_code = "400.0000000024";
+            UPDS.trans_no = "AST.0000000025";
+            UPDS.ctrans_no = "0025/TR16";
+            UPDS.trans_date = "11-MAY-2016 09:34:17";
+            UPDS.trans_from = "PS";
+            UPDS.trans_qty = "10";
+            UPDS.plan_qty = "0";
+            UPDS.im_rem = "";
+            UPDS.trans_rem = "";
+            UPDS.code_type = "S";
+
+            //UPDS.SaveStockUpd(UPDS);
+           // UPDS.SaveStockInsertHd(UPDS);
+            UPDS.SaveStockInsertTd(UPDS);
 
         }
         public static void KeyGenForInsert()
@@ -27,7 +58,7 @@ namespace sqlBase
             string p_vslcode = "'COMMON'";
             string vslcode = "400.0000000024";
             string strInitial, strPrefix;
-            //OperationsOnSourcecDB("UPDATE PURCHASE.lastcodes SET grv_no = grv_no + 1 WHERE p_vslcode =" +  p_vslcode );
+            OperationsOnSourcecDB("UPDATE PURCHASE.lastcodes SET grv_no = grv_no + 1 WHERE p_vslcode =" +  p_vslcode );
 
             //OperationsOnSourcecDB("UPDATE PURCHASE.lastcodes SET agrv_no = agrv_no + 1 WHERE p_vslcode = " + vslcode);
 
