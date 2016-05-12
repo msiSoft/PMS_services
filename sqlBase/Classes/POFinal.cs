@@ -38,6 +38,26 @@ namespace sqlBase.Classes
             int result = DB.OperationsOnSourceDB(qry);
         }
 
+        public void UpdStock(POFinal pdtl,string vslcode)
+        {
+            string qry = @"UPDATE PURCHASE.STOCK SET 
+                                                      ROB_QTY=ROB_QTY +  " + pdtl.accepted_qty  + 
+                                                    ", LAST_RECD_QTY = " + pdtl.accepted_qty +
+                                                    ", LAST_RECD_DATE= " + pdtl.data_entered_date +
+                                                    ", TOTAL_IN= TOTAL_IN + " + pdtl.accepted_qty +
+                                                    ", DE_BY=" + pdtl.data_entered_by +
+                                                    ", DE_AT= " + pdtl.data_entered_date  +
+                                                    ", UPDFLAG ="+ 'Y' +
+                                                    " ' WHERE VSLCODE = '" + vslcode + "'" +
+                                                   "' AND IM_CODE ='" + pdtl.item_code + "'" +
+                                                   "' AND CODE_TYPE= '" + pdtl.code_type + "'" +
+                                                   "' AND UPDFLAG = " + 'D';
+
+
+             DBOperations DB = new DBOperations();
+            int result = DB.OperationsOnSourceDB(qry);
+
+        }
     }
 
 }
