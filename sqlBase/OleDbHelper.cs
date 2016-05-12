@@ -97,7 +97,7 @@ namespace sqlBase
                 }
                 return true;
             }
-            catch
+            catch (Exception exc)
             {
                 throw;
             }

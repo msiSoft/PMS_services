@@ -16,3 +16,11 @@ E:\SBN\PMS_services\PMS_services\sqlBase\bin\x86\Debug\sqlBase.pdb
 E:\SBN\PMS_services\PMS_services\sqlBase\obj\x86\Debug\sqlBase.exe
 E:\SBN\PMS_services\PMS_services\sqlBase\obj\x86\Debug\sqlBase.pdb
 E:\SBN\PMS_services\PMS_services\sqlBase\obj\x86\Debug\sqlBase.csprojResolveAssemblyReference.cache
+E:\SBN\PMSAPI\PMS_services\sqlBase\bin\x86\Debug\sqlBase.exe.config
+E:\SBN\PMSAPI\PMS_services\sqlBase\obj\x86\Debug\sqlBase.exe
+E:\SBN\PMSAPI\PMS_services\sqlBase\obj\x86\Debug\sqlBase.pdb
+E:\SBN\PMSAPI\PMS_services\sqlBase\bin\x86\Debug\Sql.ini
+E:\SBN\PMSAPI\PMS_services\sqlBase\bin\x86\Debug\Program.cs
+E:\SBN\PMSAPI\PMS_services\sqlBase\bin\x86\Debug\sqlBase.exe
+E:\SBN\PMSAPI\PMS_services\sqlBase\bin\x86\Debug\sqlBase.pdb
+E:\SBN\PMSAPI\PMS_services\sqlBase\obj\x86\Debug\sqlBase.csprojResolveAssemblyReference.cache
