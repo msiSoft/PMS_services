@@ -93,40 +93,52 @@ namespace sqlBase
             // RS.GetLastCodes("COMMON");
             // RS.GetIndDt("400.0000000024");
             // RS.GetIndHd("400.0000000024");
-          
+
             RequisitionSave RS = new RequisitionSave();
 
             RS.aid_no = "0";
-            RS.id_number = "0000000009";
-            RS.eq_number = " 43";
-            RS.zone = "UNIX";
-            RS.item_code = "UNIX.00017186";
-            RS.required_qty = "3";
-            RS.deliver_before = "18-MAR-2016 09:34:17";
-            RS.cc_code = "Z";
-            RS.ccm_code = "Z";
-            RS.rob_qty = "1";
-            RS.updflag = "C";
-            RS.code_type = "I";
-            RS.order_no = "1";
-            RS.vessel_code = "400.0000000024";
-            RS.requisition_number = "-16-0007";
-            RS.requisition_date = "18-MAR-2016 09:34:17";
-            RS.id_level = "N";
-            RS.id_reqby = "MASTER";
-            RS.forw_flag = "Z";
-            RS.po_no = "Z";
-            RS.send = "1";
-            RS.tp_code = "004";
-            RS.im_category = "G";
-            RS.dept_code = "7";
-            RS.attachment = "0";
-            RS.fromoff = "V";
+           // RS.id_no = "2";
+            RS.eq_number = " 50000";
+
+            RS.SaveRequisitionUpd(RS);
+            RecieveGoods();
+        }
+        public static void RecieveGoods()
+        {
+            KeyGenForInsert();
+
+            //Declaring an object of purchase header class 
+            POHdr purchaseHdr = new POHdr();
+
+            // Assigning dummy values to purchase header class variables
+            purchaseHdr.po_number = "0000002254";
+            purchaseHdr.cpo_number = " AST002/P16";
+            purchaseHdr.vd_code = "0000000154";
+            purchaseHdr.po_date = "15-MAR-2016";
+            purchaseHdr.challan_number = 1234;
+            purchaseHdr.receipt_date = "15-MAR-2016";
+            purchaseHdr.remarks = "Test";
+            purchaseHdr.data_entered_date = "15-MAR-2016";
+            purchaseHdr.data_entered_by = "SBN";
+            purchaseHdr.is_updated_on_server = true;
+            // purchaseHdr.SavePurchaseHdr(vslcode,grvno_auto, cgrv_no,purchaseHdr);
+
+            //Declaring an object of purchase header class 
+            POFinal pdtl = new POFinal();
+            pdtl.po_number = "0000002254";
+            pdtl.item_code = "$BNT730102";
+            pdtl.requested_qty = 10;
+            pdtl.ordered_qty = 10;
+            pdtl.received_qty = 10;
+            pdtl.accepted_qty = 8;
+            pdtl.code_type = "S";
+            pdtl.data_entered_date = "15-MAR-2016";
+            pdtl.data_entered_by = "SBN";
+            pdtl.is_updated_on_server = true;
+            pdtl.SavePurchaseDtl(vslcode, grvno_auto, pdtl, purchaseHdr.vd_code);
+            pdtl.UpdStock(pdtl, vslcode);
 
 
-            // RS.SaveRequisitionUpd(RS);
-            //RS.SaveRequisitionInsrtDt(RS);
-            RS.SaveRequisitionInsrtHd(RS);
 
         }
 
