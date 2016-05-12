@@ -37,7 +37,19 @@ namespace sqlBase.Classes
             DBOperations DB = new DBOperations();
             int result = DB.OperationsOnSourceDB(qry);
 
+        }
 
+        public void UpdPOHdr(string vslcode, POHdr po)
+        {
+            string qry = @" UPDATE PURCHASE.PO_HD SET
+                                                    NO_GRV=  @NULLVALUE(NO_GRV,0)+1 
+                                                    , DELIVERED_DT=" + po.receipt_date +
+                                                    ", UPDFLAG =" + "'D' " +
+                                                     " WHERE VSLCODE = " + vslcode +
+                                                     " AND PO_NO ='" + po.po_number +
+                                                      "' AND UPDFLAG <> " + "'D'";
+            DBOperations DB = new DBOperations();
+            int result = DB.OperationsOnSourceDB(qry);
         }
     }
 }

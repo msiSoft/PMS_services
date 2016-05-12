@@ -94,13 +94,13 @@ namespace sqlBase
             // RS.GetIndDt("400.0000000024");
             // RS.GetIndHd("400.0000000024");
 
-            RequisitionSave RS = new RequisitionSave();
+            //RequisitionSave RS = new RequisitionSave();
 
-            RS.aid_no = "0";
-           // RS.id_no = "2";
-            RS.eq_number = " 50000";
+            //RS.aid_no = "0";
+            //RS.id_no = "2";
+            //RS.eq_number = " 50000";
 
-            RS.SaveRequisitionUpd(RS);
+            //RS.SaveRequisitionUpd(RS);
             RecieveGoods();
         }
         public static void RecieveGoods()
@@ -122,11 +122,12 @@ namespace sqlBase
             purchaseHdr.data_entered_by = "SBN";
             purchaseHdr.is_updated_on_server = true;
             // purchaseHdr.SavePurchaseHdr(vslcode,grvno_auto, cgrv_no,purchaseHdr);
+            purchaseHdr.UpdPOHdr(vslcode, purchaseHdr);
 
             //Declaring an object of purchase header class 
             POFinal pdtl = new POFinal();
             pdtl.po_number = "0000002254";
-            pdtl.item_code = "$BNT730102";
+            pdtl.item_code = "UNIX.00011816";
             pdtl.requested_qty = 10;
             pdtl.ordered_qty = 10;
             pdtl.received_qty = 10;
@@ -135,7 +136,7 @@ namespace sqlBase
             pdtl.data_entered_date = "15-MAR-2016";
             pdtl.data_entered_by = "SBN";
             pdtl.is_updated_on_server = true;
-            pdtl.SavePurchaseDtl(vslcode, grvno_auto, pdtl, purchaseHdr.vd_code);
+            // pdtl.SavePurchaseDtl(vslcode, grvno_auto, pdtl, purchaseHdr.vd_code);
             pdtl.UpdStock(pdtl, vslcode);
 
 
