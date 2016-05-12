@@ -93,14 +93,40 @@ namespace sqlBase
             // RS.GetLastCodes("COMMON");
             // RS.GetIndDt("400.0000000024");
             // RS.GetIndHd("400.0000000024");
-
+          
             RequisitionSave RS = new RequisitionSave();
 
             RS.aid_no = "0";
-            RS.id_no = "2";
-            RS.eq_number = " 50000";
+            RS.id_number = "0000000009";
+            RS.eq_number = " 43";
+            RS.zone = "UNIX";
+            RS.item_code = "UNIX.00017186";
+            RS.required_qty = "3";
+            RS.deliver_before = "18-MAR-2016 09:34:17";
+            RS.cc_code = "Z";
+            RS.ccm_code = "Z";
+            RS.rob_qty = "1";
+            RS.updflag = "C";
+            RS.code_type = "I";
+            RS.order_no = "1";
+            RS.vessel_code = "400.0000000024";
+            RS.requisition_number = "-16-0007";
+            RS.requisition_date = "18-MAR-2016 09:34:17";
+            RS.id_level = "N";
+            RS.id_reqby = "MASTER";
+            RS.forw_flag = "Z";
+            RS.po_no = "Z";
+            RS.send = "1";
+            RS.tp_code = "004";
+            RS.im_category = "G";
+            RS.dept_code = "7";
+            RS.attachment = "0";
+            RS.fromoff = "V";
 
-            RS.SaveRequisitionUpd(RS);
+
+            // RS.SaveRequisitionUpd(RS);
+            //RS.SaveRequisitionInsrtDt(RS);
+            RS.SaveRequisitionInsrtHd(RS);
 
         }
 
