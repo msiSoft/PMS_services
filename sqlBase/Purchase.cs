@@ -40,7 +40,6 @@ namespace sqlBase
             {
 
                 string qry = @"SELECT F.ZONE,
-                                      F.ID_NO,  
                                       F.IM_CODE,
                                       H.PO_DATE,  
                                       F.REQ_QTY,
