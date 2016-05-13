@@ -6,7 +6,7 @@ using System.Text;
 
 namespace sqlBase
 { 
-    public class Stock
+    public class TakeStock
     {
         public string rob_qty { get; set; }
         public string trans_type_code { get; set; }
@@ -27,7 +27,7 @@ namespace sqlBase
         public string im_rem { get; set; }
 
 
-        public void SaveStockUpd(Stock stock)
+        public void SaveStockUpd(TakeStock stock)
 
         {
             try
@@ -38,8 +38,8 @@ namespace sqlBase
                                                       "',                DE_AT      ='" + stock.data_entered_date +
                                                       "',              UPDFLAG      =          '" + stock.updflag +
                                                      "' WHERE          IM_CODE      =        '" + stock.item_code + "'";
-                Update_Insert UI = new Update_Insert();
-                int result = UI.OperationsOnSourcecDB(qry);
+                DBOperations UI = new DBOperations();
+                int result = UI.OperationsOnSourceDB(qry);
             }
             catch (Exception exc)
             {
@@ -47,7 +47,7 @@ namespace sqlBase
             }
         }
 
-        public void SaveStockInsertHd(Stock stock)
+        public void SaveStockInsertHd(TakeStock stock)
 
         {
             try
@@ -70,8 +70,8 @@ namespace sqlBase
                                                          "','" + stock.updflag + 
                                                  "','" + stock.data_entered_by + 
                                                "','" + stock.data_entered_date + "')";
-                Update_Insert UI = new Update_Insert();
-                int result = UI.OperationsOnSourcecDB(qry);
+                DBOperations UI = new DBOperations();
+                int result = UI.OperationsOnSourceDB(qry);
 
 
             }
@@ -81,7 +81,7 @@ namespace sqlBase
             }
         }
 
-        public void SaveStockInsertTd(Stock stock)
+        public void SaveStockInsertTd(TakeStock stock)
 
         {
             try
@@ -105,8 +105,8 @@ namespace sqlBase
                                                              "','" + stock.data_entered_by + 
                                                            "','" + stock.data_entered_date + "')";
 
-                Update_Insert UI = new Update_Insert();
-                int result = UI.OperationsOnSourcecDB(qry);
+                DBOperations UI = new DBOperations();
+                int result = UI.OperationsOnSourceDB(qry);
 
             }
             catch (Exception exc)

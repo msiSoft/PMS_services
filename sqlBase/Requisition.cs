@@ -5,7 +5,7 @@ using System.Text;
 
 namespace sqlBase
 {
-    class RequisitionSave
+    class Requisition
     {
         public string aid_no { get; set; }
         public string id_number { get; set; }
@@ -37,7 +37,7 @@ namespace sqlBase
 
 
 
-        public void SaveRequisitionUpd(RequisitionSave Requisition)
+        public void SaveRequisitionUpd(Requisition Requisition)
 
         {
             try
@@ -45,8 +45,8 @@ namespace sqlBase
                 string qry = @"UPDATE PURCHASE.LASTCODES SET    AID_NO  =   '" + Requisition.aid_no +
                                                             "', ID_NO   ='" + Requisition.id_number +
                                                      "' WHERE   EQ_NO   ='" + Requisition.eq_number + "'";
-                Update_Insert UI = new Update_Insert();
-                int result = UI.OperationsOnSourcecDB(qry);
+                DBOperations UI = new DBOperations();
+                int result = UI.OperationsOnSourceDB(qry);
             }
             catch (Exception exc)
             {
@@ -54,7 +54,7 @@ namespace sqlBase
             }
         }
 
-        public void SaveRequisitionInsrtDt(RequisitionSave Requisition)
+        public void SaveRequisitionInsrtDt(Requisition Requisition)
 
         {
             try
@@ -83,8 +83,8 @@ namespace sqlBase
                                             "','" + Requisition.updflag + 
                                           "','" + Requisition.code_type + 
                                                        "','" + order_no + "')";
-                Update_Insert UI = new Update_Insert();
-                int result = UI.OperationsOnSourcecDB(qry);
+                DBOperations UI = new DBOperations();
+                int result = UI.OperationsOnSourceDB(qry);
 
 
             }
@@ -94,7 +94,7 @@ namespace sqlBase
             }
         }
 
-        public void SaveRequisitionInsrtHd(RequisitionSave Requisition)
+        public void SaveRequisitionInsrtHd(Requisition Requisition)
 
         {
             try
@@ -139,9 +139,8 @@ namespace sqlBase
                                                           "','" + Requisition.dept_code +
                                                          "','" + Requisition.attachment +
                                                             "','" + Requisition.fromoff + "')";
-                Update_Insert UI = new Update_Insert();
-                int result = UI.OperationsOnSourcecDB(qry);
-
+                DBOperations UI = new DBOperations();
+                int result = UI.OperationsOnSourceDB(qry);
 
             }
             catch (Exception exc)
