@@ -122,12 +122,12 @@ namespace sqlBase
             goodsReceivedHdr.data_entered_by = "SBN";
             goodsReceivedHdr.is_updated_on_server = true;
             // goodsReceivedHdr.SavePurchaseHdr(vslcode,grvno_auto, cgrv_no,goodsReceivedHdr);
-            goodsReceivedHdr.UpdPOHdr(vslcode, goodsReceivedHdr);
+            //goodsReceivedHdr.UpdPOHdr(vslcode, goodsReceivedHdr);
 
             //Declaring an object of purchase header class 
             POFinal goodsReceivedtl = new POFinal();
             goodsReceivedtl.po_number = "0000002254";
-            goodsReceivedtl.item_code = "UNIX.00011816";
+            goodsReceivedtl.item_code = "$BNT730102";// "UNIX.00011816";
             goodsReceivedtl.requested_qty = 10;
             goodsReceivedtl.ordered_qty = 10;
             goodsReceivedtl.received_qty = 10;
@@ -137,7 +137,9 @@ namespace sqlBase
             goodsReceivedtl.data_entered_by = "SBN";
             goodsReceivedtl.is_updated_on_server = true;
             // goodsReceivedtl.SavePurchaseDtl(vslcode, grvno_auto, goodsReceivedtl, goodsReceivedHdr.vd_code);
+            goodsReceivedtl.UpdClosedFlag(goodsReceivedtl);
             goodsReceivedtl.UpdStock(goodsReceivedtl, vslcode);
+            
 
 
 

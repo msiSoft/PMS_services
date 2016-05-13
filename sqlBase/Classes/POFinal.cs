@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
 namespace sqlBase.Classes
 {
+    
     public class POFinal
     {
         public string po_number { get; set; }
@@ -38,9 +40,43 @@ namespace sqlBase.Classes
             int result = DB.OperationsOnSourceDB(qry);
         }
 
+        public void UpdClosedFlag(POFinal goodsReceivedtl)
+        {
+            int recd_qty = 0; 
+            int itm_qty=0;
+            char flg;
+            string qry = @" SELECT  PO_GRV_RECD_QTY,		
+                                    PO_IM_QTY
+                                    FROM PURCHASE.ID_FINAL_DT
+                                    WHERE PO_NO 		 ='" + goodsReceivedtl.po_number  +
+                                    "' AND IM_CODE='" + goodsReceivedtl.item_code + "' ";
+            SqlBase_OleDb db = new SqlBase_OleDb(qry);
+            DataTable tbl = db.GetTable();
+            foreach (DataRow row in tbl.Rows)
+            {
+                recd_qty = Convert.ToInt32 (row["PO_GRV_RECD_QTY"]);
+                itm_qty = Convert.ToInt32(row["PO_IM_QTY"]);
+            }
+
+            if (recd_qty + goodsReceivedtl.accepted_qty >= itm_qty)
+            {
+                flg = 'Y';
+            }
+            else if (recd_qty + goodsReceivedtl.accepted_qty <= 0)
+            {
+                flg = 'N';
+            }
+            else
+            {
+                flg = 'H';
+            }
+
+
+        }
+
         public void UpdStock(POFinal goodsReceivedtl, string vslcode)
         {
-            string dt = DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss");
+            string dt = DateTime.Now.ToString("dd -MMM-yyyy hh:mm:ss");
             string qry = @"UPDATE PURCHASE.STOCK SET 
                                                       ROB_QTY=ROB_QTY +  " + goodsReceivedtl.accepted_qty +
                                                     ", LAST_RECD_QTY = " + goodsReceivedtl.accepted_qty +
