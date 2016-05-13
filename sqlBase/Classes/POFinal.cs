@@ -48,8 +48,9 @@ namespace sqlBase.Classes
             string qry = @" SELECT  PO_GRV_RECD_QTY,		
                                     PO_IM_QTY
                                     FROM PURCHASE.ID_FINAL_DT
-                                    WHERE PO_NO 		 ='" + goodsReceivedtl.po_number  +
-                                    "' AND IM_CODE='" + goodsReceivedtl.item_code + "' ";
+                                    WHERE PO_NO 	='" + goodsReceivedtl.po_number  +
+                                    "' AND IM_CODE  ='" + goodsReceivedtl.item_code +
+                                    "' AND UPDFLAG 	<> 	'D' ";
             SqlBase_OleDb db = new SqlBase_OleDb(qry);
             DataTable tbl = db.GetTable();
             foreach (DataRow row in tbl.Rows)
@@ -68,10 +69,19 @@ namespace sqlBase.Classes
             }
             else
             {
-                flg = 'H';
+                flg = 'H'; //Partial 
             }
 
+            string updqry = @"UPDATE PURCHASE.ID_FINAL_DT SET 
+                                                             PO_GRV_RECD_QTY 	= 	PO_GRV_RECD_QTY + "+ goodsReceivedtl.accepted_qty  +
+		                                                    ", PO_GRV_CLOSED 		= 	'"+flg +
+                                                            "',  UPDFLAG			=	" + "'C' " +
+                                        " WHERE  PO_NO 	='" + goodsReceivedtl.po_number +
+                                        "' AND IM_CODE  ='" + goodsReceivedtl.item_code + "' ";
 
+
+            DBOperations DB = new DBOperations();
+            int result = DB.OperationsOnSourceDB(updqry);
         }
 
         public void UpdStock(POFinal goodsReceivedtl, string vslcode)

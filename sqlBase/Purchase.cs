@@ -12,6 +12,7 @@ namespace sqlBase
         {
             try
             {
+
                 string flg = "'D'";
 
                 string qry = @"SELECT DISTINCT  PO_HD.CPO_NO,  
