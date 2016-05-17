@@ -84,6 +84,51 @@ namespace sqlBase.Classes
             int result = DB.OperationsOnSourceDB(updqry);
         }
 
+        public void UpdClosedFlagInPurchaseDtl(POFinal goodsReceivedtl)
+        {
+            int recd_qty = 0;
+            int itm_qty = 0;
+            char flg;
+            string qry = @" SELECT  RECD_QTY,		
+                                    IM_QTY
+                                    FROM PURCHASE.PO_DT
+                                    WHERE PO_NO 	='" + goodsReceivedtl.po_number +
+                                    "' AND IM_CODE  ='" + goodsReceivedtl.item_code +
+                                    "' AND UPDFLAG 	<> 	'D' ";
+            SqlBase_OleDb db = new SqlBase_OleDb(qry);
+            DataTable tbl = db.GetTable();
+            foreach (DataRow row in tbl.Rows)
+            {
+                recd_qty = Convert.ToInt32(row["RECD_QTY"]);
+                itm_qty = Convert.ToInt32(row["IM_QTY"]);
+            }
+
+            if (recd_qty + goodsReceivedtl.accepted_qty >= itm_qty)
+            {
+                flg = 'Y';
+            }
+            else if (recd_qty + goodsReceivedtl.accepted_qty <= 0)
+            {
+                flg = 'N';
+            }
+            else
+            {
+                flg = 'H'; //Partial 
+            }
+
+            string updqry = @"UPDATE PURCHASE.PO_DT SET 
+                                                             RECD_QTY 	= 	RECD_QTY + " + goodsReceivedtl.accepted_qty +
+                                                            ", CLOSED 		= 	'" + flg +
+                                                            "',  UPDFLAG			=	" + "'C' " +
+                                        " WHERE  PO_NO 	='" + goodsReceivedtl.po_number +
+                                        "' AND IM_CODE  ='" + goodsReceivedtl.item_code +
+                                        "' AND UPDFLAG 	<> 	'D'";
+
+
+            DBOperations DB = new DBOperations();
+            int result = DB.OperationsOnSourceDB(updqry);
+        }
+
         public void UpdStock(POFinal goodsReceivedtl, string vslcode)
         {
             string dt = DateTime.Now.ToString("dd -MMM-yyyy hh:mm:ss");
