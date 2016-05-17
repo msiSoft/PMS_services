@@ -132,7 +132,7 @@ namespace sqlBase
             goodsReceivedtl.ordered_qty = 10;
             goodsReceivedtl.received_qty = 10;
             goodsReceivedtl.accepted_qty = 8;
-            goodsReceivedtl.code_type = "S";
+            goodsReceivedtl.code_type = "I";
             goodsReceivedtl.data_entered_date = "15-MAR-2016";
             goodsReceivedtl.data_entered_by = "SBN";
             goodsReceivedtl.is_updated_on_server = true;
