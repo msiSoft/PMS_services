@@ -133,6 +133,7 @@ namespace sqlBase.Classes
         {
             string dt = DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss");
             double amt = 0.00;
+            double price = 0.00;
             int qty = 0;
             string selqry = @" SELECT PO_IM_AMT,
                                       PO_IM_QTY 
@@ -140,21 +141,23 @@ namespace sqlBase.Classes
                                 WHERE VSLCODE = " + vslcode +  
                                 " AND IM_CODE ='" + goodsReceivedtl.item_code +
                                 "' AND PO_NO='" + goodsReceivedtl.po_number +
-                               "' AND CODE_TYPE='" + goodsReceivedtl.po_number + "'";
-            SqlBase_OleDb db = new SqlBase_OleDb(qry);
+                               "' AND CODE_TYPE='" + goodsReceivedtl.code_type + "'";
+            SqlBase_OleDb db = new SqlBase_OleDb(selqry);
             DataTable tbl = db.GetTable();
             foreach (DataRow row in tbl.Rows)
             {
                 amt = Convert.ToInt32(row["PO_IM_AMT"]);
                 qty = Convert.ToInt32(row["PO_IM_QTY"]);
             }
+            price = amt / qty;
 
             string qry = @"UPDATE PURCHASE.STOCK SET 
                                                       ROB_QTY=ROB_QTY +  " + goodsReceivedtl.accepted_qty +
                                                     ", LAST_RECD_QTY = " + goodsReceivedtl.accepted_qty +
-                                                    ", LAST_RECD_DT= " + dt +
-                                                    ", TOTAL_IN= TOTAL_IN + " + goodsReceivedtl.accepted_qty +
-                                                    ", DE_BY= '" + goodsReceivedtl.data_entered_by +
+                                                    ", LAST_RECD_DT = " + dt +
+                                                    ", TOTAL_IN = TOTAL_IN + " + goodsReceivedtl.accepted_qty +
+                                                    ", LAST_RECD_PRICE	= "+price + 
+                                                    ",DE_BY = '" + goodsReceivedtl.data_entered_by +
                                                     "', DE_AT= " + goodsReceivedtl.data_entered_date +
                                                     ", UPDFLAG =" + "'D' " +
                                                     " WHERE VSLCODE = " + vslcode +
