@@ -40,8 +40,9 @@ namespace sqlBase
             try
             {
 
-                string qry = @"SELECT F.ZONE,
+                string qry = @"SELECT DISTINCT F.ZONE,
                                       F.IM_CODE,
+                                      F.PO_NO,
                                       H.PO_DATE,  
                                       F.REQ_QTY,
                                       F.IV_QTY,
@@ -54,7 +55,8 @@ namespace sqlBase
                                       F.ROB_QTY
                                       FROM PURCHASE.ID_FINAL_DT F,
                                             PURCHASE.PO_HD H
-                                      WHERE  F.VSLCODE= " + VSLCode;
+                                      WHERE  F.PO_NO=H.PO_NO       
+                                      AND   F.VSLCODE= " + VSLCode;
                 SqlBase_OleDb db = new SqlBase_OleDb(qry);
                 DataTable tbl = db.GetTable();
             }
