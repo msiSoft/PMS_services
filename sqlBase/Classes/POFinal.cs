@@ -132,6 +132,23 @@ namespace sqlBase.Classes
         public void UpdStock(POFinal goodsReceivedtl, string vslcode)
         {
             string dt = DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss");
+            double amt = 0.00;
+            int qty = 0;
+            string selqry = @" SELECT PO_IM_AMT,
+                                      PO_IM_QTY 
+                                FROM PURCHASE.ID_FINAL_DT  
+                                WHERE VSLCODE = " + vslcode +  
+                                " AND IM_CODE ='" + goodsReceivedtl.item_code +
+                                "' AND PO_NO='" + goodsReceivedtl.po_number +
+                               "' AND CODE_TYPE='" + goodsReceivedtl.po_number + "'";
+            SqlBase_OleDb db = new SqlBase_OleDb(qry);
+            DataTable tbl = db.GetTable();
+            foreach (DataRow row in tbl.Rows)
+            {
+                amt = Convert.ToInt32(row["PO_IM_AMT"]);
+                qty = Convert.ToInt32(row["PO_IM_QTY"]);
+            }
+
             string qry = @"UPDATE PURCHASE.STOCK SET 
                                                       ROB_QTY=ROB_QTY +  " + goodsReceivedtl.accepted_qty +
                                                     ", LAST_RECD_QTY = " + goodsReceivedtl.accepted_qty +
