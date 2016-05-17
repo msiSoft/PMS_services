@@ -131,7 +131,7 @@ namespace sqlBase.Classes
 
         public void UpdStock(POFinal goodsReceivedtl, string vslcode)
         {
-            string dt = DateTime.Now.ToString("dd -MMM-yyyy hh:mm:ss");
+            string dt = DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss");
             string qry = @"UPDATE PURCHASE.STOCK SET 
                                                       ROB_QTY=ROB_QTY +  " + goodsReceivedtl.accepted_qty +
                                                     ", LAST_RECD_QTY = " + goodsReceivedtl.accepted_qty +
