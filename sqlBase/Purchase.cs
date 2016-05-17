@@ -15,7 +15,8 @@ namespace sqlBase
 
                 string flg = "'D'";
 
-                string qry = @"SELECT DISTINCT  PO_HD.CPO_NO,  
+                string qry = @"SELECT DISTINCT  PO_HD.ZONE,
+                                                PO_HD.CPO_NO,  
                                                 PO_HD.PO_NO, 
                                                 PO_HD.VD_CODE
 	                                            FROM PURCHASE.PO_HD,
