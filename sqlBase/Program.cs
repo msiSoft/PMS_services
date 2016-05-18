@@ -124,8 +124,8 @@ namespace sqlBase
             goodsReceivedHdr.data_entered_date = "15-MAR-2016";
             goodsReceivedHdr.data_entered_by = "SBN";
             goodsReceivedHdr.is_updated_on_server = true;
-            goodsReceivedHdr.SavePurchaseHdr(vslcode, grvno_auto, cgrv_no, goodsReceivedHdr,zone);
-            //goodsReceivedHdr.UpdPOHdr(vslcode, goodsReceivedHdr);
+            //goodsReceivedHdr.SavePurchaseHdr(vslcode, grvno_auto, cgrv_no, goodsReceivedHdr,zone);
+            //goodsReceivedHdr.UpdPOHdr(vslcode, goodsReceivedHdr, zone);
 
             //Declaring an object of purchase header class 
             POFinal goodsReceivedtl = new POFinal();

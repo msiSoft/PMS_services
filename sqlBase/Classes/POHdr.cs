@@ -40,14 +40,15 @@ namespace sqlBase.Classes
 
         }
 
-        public void UpdPOHdr(string vslcode, POHdr goodsReceivedHdr)
+        public void UpdPOHdr(string vslcode, POHdr goodsReceivedHdr,string Zone)
         {
             string qry = @" UPDATE PURCHASE.PO_HD SET
                                                     NO_GRV=  @NULLVALUE(NO_GRV,0)+1 
                                                     , DELIVERED_DT=" + goodsReceivedHdr.receipt_date +
                                                     ", UPDFLAG =" + "'D' " +
                                                      " WHERE VSLCODE = " + vslcode +
-                                                     " AND PO_NO ='" + goodsReceivedHdr.po_number +
+                                                     " AND ZONE='"+ Zone +
+                                                     "' AND PO_NO ='" + goodsReceivedHdr.po_number +
                                                       "' AND UPDFLAG <> " + "'D'";
             DBOperations DB = new DBOperations();
             int result = DB.OperationsOnSourceDB(qry);
