@@ -8,7 +8,7 @@ namespace sqlBase
 {
     public class Common
     {
-        public void GetAllVendorNames(string VSLCode) // selecting all the vendor names 
+        public void GetAllVendorNames(string VSLCode,string Zone) // selecting all the vendor names 
         {
             try
             {
@@ -16,7 +16,8 @@ namespace sqlBase
                                       FROM PURCHASE.VEND_MF V,
                                            PURCHASE.PO_HD P
                                       WHERE V.VD_CODE=P.VD_CODE
-                                      AND P.VSLCODE	= " + VSLCode;
+                                      AND P.VSLCODE	= " + VSLCode + 
+                                     " AND P.ZONE='" + Zone +"'" ;
                 SqlBase_OleDb db = new SqlBase_OleDb(qry);
                 DataTable tbl = db.GetTable();
             }
