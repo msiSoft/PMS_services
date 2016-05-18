@@ -21,10 +21,11 @@ namespace sqlBase.Classes
         public bool is_updated_on_server { get; set; }
 
 
-        public void SavePurchaseDtl(string vslcode, string grvno_auto, POFinal goodsReceivedtl, string vendorcode)
+        public void SavePurchaseDtl(string vslcode, string grvno_auto, POFinal goodsReceivedtl, string vendorcode,string zone)
         {
             string qry = @"INSERT INTO PURCHASE.GRV_DT 
                                                         ( 
+                                                        ZONE,
                                                         GRV_NO,
                                                         IM_CODE,
                                                         QTY_RECD,
@@ -35,7 +36,7 @@ namespace sqlBase.Classes
                                                         PO_NO,
                                                         VD_CODE
                                                         )
-                                                         VALUES   ('" + grvno_auto + "','" + goodsReceivedtl.item_code + "', " + goodsReceivedtl.received_qty + "," + goodsReceivedtl.accepted_qty + ",'Y'," + vslcode + ",'" + goodsReceivedtl.code_type + "' ,'" + goodsReceivedtl.po_number + "' ,'" + vendorcode + "')";
+                                                         VALUES   ('" + zone + "','" + grvno_auto + "','" + goodsReceivedtl.item_code + "', " + goodsReceivedtl.received_qty + "," + goodsReceivedtl.accepted_qty + ",'Y'," + vslcode + ",'" + goodsReceivedtl.code_type + "' ,'" + goodsReceivedtl.po_number + "' ,'" + vendorcode + "')";
             DBOperations DB = new DBOperations();
             int result = DB.OperationsOnSourceDB(qry);
         }

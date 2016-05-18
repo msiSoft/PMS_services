@@ -139,8 +139,8 @@ namespace sqlBase
             goodsReceivedtl.data_entered_date = "15-MAR-2016";
             goodsReceivedtl.data_entered_by = "SBN";
             goodsReceivedtl.is_updated_on_server = true;
-            // goodsReceivedtl.SavePurchaseDtl(vslcode, grvno_auto, goodsReceivedtl, goodsReceivedHdr.vd_code);
-           // goodsReceivedtl.UpdClosedFlag(goodsReceivedtl);
+            goodsReceivedtl.SavePurchaseDtl(vslcode, grvno_auto, goodsReceivedtl, goodsReceivedHdr.vd_code,zone );
+            // goodsReceivedtl.UpdClosedFlag(goodsReceivedtl);
             goodsReceivedtl.UpdClosedFlagInPurchaseDtl(goodsReceivedtl);
             goodsReceivedtl.UpdStock(goodsReceivedtl, vslcode);
             
