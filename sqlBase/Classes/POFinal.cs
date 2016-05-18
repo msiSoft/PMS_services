@@ -41,7 +41,7 @@ namespace sqlBase.Classes
             int result = DB.OperationsOnSourceDB(qry);
         }
 
-        public void UpdClosedFlag(POFinal goodsReceivedtl)
+        public void UpdClosedFlag(POFinal goodsReceivedtl,string zone)
         {
             int recd_qty = 0; 
             int itm_qty=0;
@@ -51,6 +51,7 @@ namespace sqlBase.Classes
                                     FROM PURCHASE.ID_FINAL_DT
                                     WHERE PO_NO 	='" + goodsReceivedtl.po_number  +
                                     "' AND IM_CODE  ='" + goodsReceivedtl.item_code +
+                                    "' AND ZONE='"+ zone + 
                                     "' AND UPDFLAG 	<> 	'D' ";
             SqlBase_OleDb db = new SqlBase_OleDb(qry);
             DataTable tbl = db.GetTable();
@@ -85,7 +86,7 @@ namespace sqlBase.Classes
             int result = DB.OperationsOnSourceDB(updqry);
         }
 
-        public void UpdClosedFlagInPurchaseDtl(POFinal goodsReceivedtl)
+        public void UpdClosedFlagInPurchaseDtl(POFinal goodsReceivedtl, string zone)
         {
             int recd_qty = 0;
             int itm_qty = 0;
@@ -94,7 +95,8 @@ namespace sqlBase.Classes
                                     IM_QTY
                                     FROM PURCHASE.PO_DT
                                     WHERE PO_NO 	='" + goodsReceivedtl.po_number +
-                                    "' AND IM_CODE  ='" + goodsReceivedtl.item_code +
+                                    "' AND IM_CODE  ='" + goodsReceivedtl.item_code+
+                                    "' AND ZONE='" + zone +
                                     "' AND UPDFLAG 	<> 	'D' ";
             SqlBase_OleDb db = new SqlBase_OleDb(qry);
             DataTable tbl = db.GetTable();
