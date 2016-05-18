@@ -11,12 +11,12 @@ namespace sqlBase
 {
     class Program
     {
-        public static string grvno_auto, cgrv_no, vslcode;
+        public static string grvno_auto, cgrv_no, vslcode, zone;
 
         static void Main(string[] args)
         {
             
-            string zone= (string)ExecuteScalarOnSourceDB("SELECT ZONE FROM PMS.SETUP");
+            zone= (string)ExecuteScalarOnSourceDB("SELECT ZONE FROM PMS.SETUP");
 
             //ZonesAndEquipments ZE = new ZonesAndEquipments();
             //ZE.GetEquipments("400.0000000024");
@@ -124,7 +124,7 @@ namespace sqlBase
             goodsReceivedHdr.data_entered_date = "15-MAR-2016";
             goodsReceivedHdr.data_entered_by = "SBN";
             goodsReceivedHdr.is_updated_on_server = true;
-            // goodsReceivedHdr.SavePurchaseHdr(vslcode,grvno_auto, cgrv_no,goodsReceivedHdr);
+            goodsReceivedHdr.SavePurchaseHdr(vslcode, grvno_auto, cgrv_no, goodsReceivedHdr,zone);
             //goodsReceivedHdr.UpdPOHdr(vslcode, goodsReceivedHdr);
 
             //Declaring an object of purchase header class 
