@@ -15,6 +15,9 @@ namespace sqlBase
 
         static void Main(string[] args)
         {
+            
+            string zone= (string)ExecuteScalarOnSourceDB("SELECT ZONE FROM PMS.SETUP");
+
             //ZonesAndEquipments ZE = new ZonesAndEquipments();
             //ZE.GetEquipments("400.0000000024");
             //Common MasterData = new Common();
