@@ -8,22 +8,26 @@ namespace sqlBase
 {
     public class Purchase
     {
-        public void GetPONumbers(string VSLCode) // selecting ponumber, vendor code etc
+        public void GetPONumbers(string VSLCode,string Zone) // selecting ponumber, vendor code etc
         {
             try
             {
+
                 string flg = "'D'";
 
-                string qry = @"SELECT DISTINCT  PO_HD.CPO_NO,  
+                string qry = @"SELECT DISTINCT  PO_HD.ZONE,
+                                                PO_HD.CPO_NO,  
                                                 PO_HD.PO_NO, 
                                                 PO_HD.VD_CODE
 	                                            FROM PURCHASE.PO_HD,
                                                      PURCHASE.PO_DT
 	                                            WHERE 	PO_HD.PO_NO = PO_DT.PO_NO
-	                                            AND	PO_HD.VSLCODE	= " + VSLCode
-                                                 + " AND	PO_HD.UPDFLAG 	<> 	" + flg
+	                                            AND	PO_HD.VSLCODE	= " + VSLCode 
+                                                 + " AND PO_HD.ZONE='"+Zone +
+                                                 "' AND	PO_HD.UPDFLAG 	<> 	" + flg
                                                 + " AND	PO_DT.VSLCODE	= " + VSLCode
-                                                + " AND	PO_DT.UPDFLAG 	<> " + flg
+                                                + " AND PO_DT.ZONE='"+ Zone 
+                                                + "' AND	PO_DT.UPDFLAG 	<> " + flg
                                                 + " AND	PO_DT.RECD_QTY < PO_DT.IM_QTY ORDER	BY PO_HD.PO_NO";
                 SqlBase_OleDb db = new SqlBase_OleDb(qry);
                 DataTable tbl = db.GetTable();
@@ -34,13 +38,14 @@ namespace sqlBase
             }
         }
 
-        public void GetAllPODetails(string VSLCode) // getting item details from PURCHASE.ID_FINAL_DT corresponding to the vslcode 
+        public void GetAllPODetails(string VSLCode, string Zone) // getting item details from PURCHASE.ID_FINAL_DT corresponding to the vslcode 
         {
             try
             {
 
-                string qry = @"SELECT F.ZONE,
+                string qry = @"SELECT DISTINCT 
                                       F.IM_CODE,
+                                      F.PO_NO,
                                       H.PO_DATE,  
                                       F.REQ_QTY,
                                       F.IV_QTY,
@@ -53,7 +58,9 @@ namespace sqlBase
                                       F.ROB_QTY
                                       FROM PURCHASE.ID_FINAL_DT F,
                                             PURCHASE.PO_HD H
-                                      WHERE  F.VSLCODE= " + VSLCode;
+                                      WHERE  F.PO_NO=H.PO_NO       
+                                      AND   F.VSLCODE= " + VSLCode +
+                                      " AND H.ZONE='" +Zone + "'";
                 SqlBase_OleDb db = new SqlBase_OleDb(qry);
                 DataTable tbl = db.GetTable();
             }

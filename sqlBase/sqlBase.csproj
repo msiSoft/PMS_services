@@ -74,6 +74,7 @@
     <Compile Include="Purchase.cs" />
     <Compile Include="Requisition.cs" />
     <Compile Include="RequisitionSelect.cs" />
+    <Compile Include="RunningHour.cs" />
     <Compile Include="SqlBase_OleDb.cs" />
     <Compile Include="TakeStock.cs" />
     <Compile Include="TakeStockDisplay.cs" />

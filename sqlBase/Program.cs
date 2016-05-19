@@ -11,17 +11,20 @@ namespace sqlBase
 {
     class Program
     {
-        public static string grvno_auto, cgrv_no, vslcode;
+        public static string grvno_auto, cgrv_no, vslcode, zone;
 
         static void Main(string[] args)
         {
+            
+            zone= (string)ExecuteScalarOnSourceDB("SELECT ZONE FROM PMS.SETUP");
+
             //ZonesAndEquipments ZE = new ZonesAndEquipments();
             //ZE.GetEquipments("400.0000000024");
-            //Common MasterData = new Common();
-            //MasterData.GetAllVendorNames("400.0000000024");// Get all the available vendors for the vessel
-            //Purchase PR = new Purchase();
-            //PR.GetPONumbers("400.0000000024"); // Get all the PO numbers for the vessel
-            //PR.GetAllPODetails("400.0000000024"); // Get all the item details for the vessel
+            Common MasterData = new Common();
+            MasterData.GetAllVendorNames("400.0000000024", zone);// Get all the available vendors for the vessel
+            Purchase PR = new Purchase();
+            PR.GetPONumbers("400.0000000024", zone); // Get all the PO numbers for the vessel
+            PR.GetAllPODetails("400.0000000024", zone); // Get all the item details for the vessel
             ////PR.ReceiveGoods();
 
 
@@ -108,36 +111,39 @@ namespace sqlBase
             KeyGenForInsert();
 
             //Declaring an object of purchase header class 
-            POHdr purchaseHdr = new POHdr();
+            POHdr goodsReceivedHdr = new POHdr();
 
             // Assigning dummy values to purchase header class variables
-            purchaseHdr.po_number = "0000002254";
-            purchaseHdr.cpo_number = " AST002/P16";
-            purchaseHdr.vd_code = "0000000154";
-            purchaseHdr.po_date = "15-MAR-2016";
-            purchaseHdr.challan_number = 1234;
-            purchaseHdr.receipt_date = "15-MAR-2016";
-            purchaseHdr.remarks = "Test";
-            purchaseHdr.data_entered_date = "15-MAR-2016";
-            purchaseHdr.data_entered_by = "SBN";
-            purchaseHdr.is_updated_on_server = true;
-            // purchaseHdr.SavePurchaseHdr(vslcode,grvno_auto, cgrv_no,purchaseHdr);
-            purchaseHdr.UpdPOHdr(vslcode, purchaseHdr);
+            goodsReceivedHdr.po_number = "0000002254";
+            goodsReceivedHdr.cpo_number = " AST002/P16";
+            goodsReceivedHdr.vd_code = "0000000154";
+            goodsReceivedHdr.po_date = "15-MAR-2016";
+            goodsReceivedHdr.challan_number = 1234;
+            goodsReceivedHdr.receipt_date = "15-MAR-2016";
+            goodsReceivedHdr.remarks = "Test";
+            goodsReceivedHdr.data_entered_date = "15-MAR-2016";
+            goodsReceivedHdr.data_entered_by = "SBN";
+            goodsReceivedHdr.is_updated_on_server = true;
+            //goodsReceivedHdr.SavePurchaseHdr(vslcode, grvno_auto, cgrv_no, goodsReceivedHdr,zone);
+            //goodsReceivedHdr.UpdPOHdr(vslcode, goodsReceivedHdr, zone);
 
             //Declaring an object of purchase header class 
-            POFinal pdtl = new POFinal();
-            pdtl.po_number = "0000002254";
-            pdtl.item_code = "UNIX.00011816";
-            pdtl.requested_qty = 10;
-            pdtl.ordered_qty = 10;
-            pdtl.received_qty = 10;
-            pdtl.accepted_qty = 8;
-            pdtl.code_type = "S";
-            pdtl.data_entered_date = "15-MAR-2016";
-            pdtl.data_entered_by = "SBN";
-            pdtl.is_updated_on_server = true;
-            // pdtl.SavePurchaseDtl(vslcode, grvno_auto, pdtl, purchaseHdr.vd_code);
-            pdtl.UpdStock(pdtl, vslcode);
+            POFinal goodsReceivedtl = new POFinal();
+            goodsReceivedtl.po_number = "0000002254";
+            goodsReceivedtl.item_code = "$BNT730102";// "UNIX.00011816";
+            goodsReceivedtl.requested_qty = 10;
+            goodsReceivedtl.ordered_qty = 10;
+            goodsReceivedtl.received_qty = 10;
+            goodsReceivedtl.accepted_qty = 8;
+            goodsReceivedtl.code_type = "I";
+            goodsReceivedtl.data_entered_date = "15-MAR-2016";
+            goodsReceivedtl.data_entered_by = "SBN";
+            goodsReceivedtl.is_updated_on_server = true;
+            //goodsReceivedtl.SavePurchaseDtl(vslcode, grvno_auto, goodsReceivedtl, goodsReceivedHdr.vd_code,zone );
+            //goodsReceivedtl.UpdClosedFlag(goodsReceivedtl, zone);
+            //goodsReceivedtl.UpdClosedFlagInPurchaseDtl(goodsReceivedtl, zone);
+            goodsReceivedtl.UpdStock(goodsReceivedtl, vslcode);
+            
 
 
 

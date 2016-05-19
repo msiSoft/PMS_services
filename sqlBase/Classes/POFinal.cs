@@ -21,10 +21,11 @@ namespace sqlBase.Classes
         public bool is_updated_on_server { get; set; }
 
 
-        public void SavePurchaseDtl(string vslcode, string grvno_auto, POFinal goodsReceivedtl, string vendorcode)
+        public void SavePurchaseDtl(string vslcode, string grvno_auto, POFinal goodsReceivedtl, string vendorcode,string zone)
         {
             string qry = @"INSERT INTO PURCHASE.GRV_DT 
                                                         ( 
+                                                        ZONE,
                                                         GRV_NO,
                                                         IM_CODE,
                                                         QTY_RECD,
@@ -35,12 +36,12 @@ namespace sqlBase.Classes
                                                         PO_NO,
                                                         VD_CODE
                                                         )
-                                                         VALUES   ('" + grvno_auto + "','" + goodsReceivedtl.item_code + "', " + goodsReceivedtl.received_qty + "," + goodsReceivedtl.accepted_qty + ",'Y'," + vslcode + ",'" + goodsReceivedtl.code_type + "' ,'" + goodsReceivedtl.po_number + "' ,'" + vendorcode + "')";
+                                                         VALUES   ('" + zone + "','" + grvno_auto + "','" + goodsReceivedtl.item_code + "', " + goodsReceivedtl.received_qty + "," + goodsReceivedtl.accepted_qty + ",'Y'," + vslcode + ",'" + goodsReceivedtl.code_type + "' ,'" + goodsReceivedtl.po_number + "' ,'" + vendorcode + "')";
             DBOperations DB = new DBOperations();
             int result = DB.OperationsOnSourceDB(qry);
         }
 
-        public void UpdClosedFlag(POFinal goodsReceivedtl)
+        public void UpdClosedFlag(POFinal goodsReceivedtl,string zone)
         {
             int recd_qty = 0; 
             int itm_qty=0;
@@ -50,6 +51,7 @@ namespace sqlBase.Classes
                                     FROM PURCHASE.ID_FINAL_DT
                                     WHERE PO_NO 	='" + goodsReceivedtl.po_number  +
                                     "' AND IM_CODE  ='" + goodsReceivedtl.item_code +
+                                    "' AND ZONE='"+ zone + 
                                     "' AND UPDFLAG 	<> 	'D' ";
             SqlBase_OleDb db = new SqlBase_OleDb(qry);
             DataTable tbl = db.GetTable();
@@ -84,7 +86,7 @@ namespace sqlBase.Classes
             int result = DB.OperationsOnSourceDB(updqry);
         }
 
-        public void UpdClosedFlagInPurchaseDtl(POFinal goodsReceivedtl)
+        public void UpdClosedFlagInPurchaseDtl(POFinal goodsReceivedtl, string zone)
         {
             int recd_qty = 0;
             int itm_qty = 0;
@@ -93,7 +95,8 @@ namespace sqlBase.Classes
                                     IM_QTY
                                     FROM PURCHASE.PO_DT
                                     WHERE PO_NO 	='" + goodsReceivedtl.po_number +
-                                    "' AND IM_CODE  ='" + goodsReceivedtl.item_code +
+                                    "' AND IM_CODE  ='" + goodsReceivedtl.item_code+
+                                    "' AND ZONE='" + zone +
                                     "' AND UPDFLAG 	<> 	'D' ";
             SqlBase_OleDb db = new SqlBase_OleDb(qry);
             DataTable tbl = db.GetTable();

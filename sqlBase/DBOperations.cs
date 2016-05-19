@@ -7,14 +7,13 @@ namespace sqlBase
 {
     public class DBOperations
     {
-        public int OperationsOnSourceDB(string qry)
+        public int OperationsOnSourceDB(string qry, SQLBaseDB db = SQLBaseDB.DBPURCHV)
         {
             int res = 0;
 
             try
             {
-                OleDbHelper sourcedb = new OleDbHelper();
-
+                OleDbHelper sourcedb = new OleDbHelper(db);
                 sourcedb.createCommand();
                 sourcedb.command.CommandText = qry;
                 res = sourcedb.ExecuteQuery();

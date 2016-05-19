@@ -18,10 +18,11 @@ namespace sqlBase.Classes
         public string data_entered_by { get; set; }
         public bool is_updated_on_server { get; set; }
 
-        public void SavePurchaseHdr(string vslcode, string grvno_auto, string cgrv_no, POHdr goodsReceivedHdr)
+        public void SavePurchaseHdr(string vslcode, string grvno_auto, string cgrv_no, POHdr goodsReceivedHdr,string Zone)
         {
             string qry = @"INSERT INTO PURCHASE.GRV_HD 
-                                                        ( 
+                                                        (
+                                                        ZONE, 
                                                         GRV_NO,
                                                         CGRV_NO,	
                                                         CHL_NO,
@@ -33,20 +34,21 @@ namespace sqlBase.Classes
                                                         VSLCODE,			
                                                         VD_CODE
                                                         )
-                                                         VALUES   ('" + grvno_auto + "','" + cgrv_no + "', " + goodsReceivedHdr.challan_number + ",'" + goodsReceivedHdr.remarks + "','" + goodsReceivedHdr.data_entered_by + "','" + goodsReceivedHdr.receipt_date + "','Y','" + goodsReceivedHdr.data_entered_date + "'," + vslcode + ",'" + goodsReceivedHdr.vd_code + "')";
+                                                         VALUES   ('" + Zone  + "','" + grvno_auto + "','" + cgrv_no + "', " + goodsReceivedHdr.challan_number + ",'" + goodsReceivedHdr.remarks + "','" + goodsReceivedHdr.data_entered_by + "','" + goodsReceivedHdr.receipt_date + "','Y','" + goodsReceivedHdr.data_entered_date + "'," + vslcode + ",'" + goodsReceivedHdr.vd_code + "')";
             DBOperations DB = new DBOperations();
             int result = DB.OperationsOnSourceDB(qry);
 
         }
 
-        public void UpdPOHdr(string vslcode, POHdr goodsReceivedHdr)
+        public void UpdPOHdr(string vslcode, POHdr goodsReceivedHdr,string Zone)
         {
             string qry = @" UPDATE PURCHASE.PO_HD SET
                                                     NO_GRV=  @NULLVALUE(NO_GRV,0)+1 
                                                     , DELIVERED_DT=" + goodsReceivedHdr.receipt_date +
                                                     ", UPDFLAG =" + "'D' " +
                                                      " WHERE VSLCODE = " + vslcode +
-                                                     " AND PO_NO ='" + goodsReceivedHdr.po_number +
+                                                     " AND ZONE='"+ Zone +
+                                                     "' AND PO_NO ='" + goodsReceivedHdr.po_number +
                                                       "' AND UPDFLAG <> " + "'D'";
             DBOperations DB = new DBOperations();
             int result = DB.OperationsOnSourceDB(qry);
