@@ -15,24 +15,6 @@ namespace sqlBase
 
         static void Main(string[] args)
         {
-            RunningHour RH = new RunningHour();
-            RH.vessel_code = "1";
-            RH.eq_code = "1";
-            RH.rh_previous = "1";
-            RH.rh_add = "11";
-            RH.data_entered_date = "11";
-            RH.data_entered_by = "1";
-            RH.data_entered_by = "1";
-            RH.data_entered_date = "1";
-            RH.last_rh_add = "1";
-            RH.last_data_entered_date = "1";
-            RH.last_data_entered_by = "1";
-
-
-            ZonesAndEquipments ze = new ZonesAndEquipments();
-           // ze.GetEquipmentsPresentRunningHours("400.0000000024");
-            ze.SetRH(RH);
-
             //ZonesAndEquipments ZE = new ZonesAndEquipments();
             //ZE.GetEquipments("400.0000000024");
             //Common MasterData = new Common();
