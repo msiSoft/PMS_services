@@ -20,3 +20,13 @@ E:\SBN\PMSAPI\PMS_services\sqlBase\bin\Debug\Program.cs
 E:\SBN\PMSAPI\PMS_services\sqlBase\bin\Debug\sqlBase.exe
 E:\SBN\PMSAPI\PMS_services\sqlBase\bin\Debug\sqlBase.pdb
 E:\SBN\PMSAPI\PMS_services\sqlBase\obj\Debug\sqlBase.csprojResolveAssemblyReference.cache
+E:\Asp.net\sbn\POC\PMS_Services_git_hub\1205\PMS_services\sqlBase\bin\Debug\sqlBase.exe.config
+E:\Asp.net\sbn\POC\PMS_Services_git_hub\1205\PMS_services\sqlBase\obj\Debug\sqlBase.exe
+E:\Asp.net\sbn\POC\PMS_Services_git_hub\1205\PMS_services\sqlBase\obj\Debug\sqlBase.pdb
+E:\Asp.net\sbn\POC\PMS_Services_git_hub\1205\PMS_services\sqlBase\bin\Debug\Program.cs
+E:\Asp.net\sbn\POC\PMS_Services_git_hub\1205\PMS_services\sqlBase\bin\Debug\Sql.ini
+E:\Asp.net\sbn\POC\PMS_Services_git_hub\1205\PMS_services\sqlBase\bin\Debug\sqlBase.exe
+E:\Asp.net\sbn\POC\PMS_Services_git_hub\1205\PMS_services\sqlBase\bin\Debug\sqlBase.pdb
+E:\Asp.net\sbn\POC\PMS_Services_git_hub\1205\PMS_services\sqlBase\bin\Debug\System.Net.Http.dll
+E:\Asp.net\sbn\POC\PMS_Services_git_hub\1205\PMS_services\sqlBase\bin\Debug\System.Net.Http.xml
+E:\Asp.net\sbn\POC\PMS_Services_git_hub\1205\PMS_services\sqlBase\obj\Debug\sqlBase.csprojResolveAssemblyReference.cache

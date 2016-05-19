@@ -24,8 +24,8 @@ namespace sqlBase
 
             if (db == SQLBaseDB.DBPURCHV)
                 connStr = "provider = SQLBASEOLEDB;Data Source=DBPURCHV;User Id=REPORT;Password=REPORT; ini=.\\Sql.ini";
-            else
-                connStr = "provider = SQLBASEOLEDB;Data Source=DBPURCHV;User Id=REPORT;Password=REPORT; ini=.\\Sql.ini";
+            else if(db == SQLBaseDB.DBIMAGE)
+                connStr = "provider = SQLBASEOLEDB;Data Source=DBIMAGE;User Id=REPORT;Password=REPORT; ini=.\\Sql.ini";
 
         }
 
