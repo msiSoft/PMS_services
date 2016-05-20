@@ -8,6 +8,58 @@ namespace sqlBase
 {
     public class Common
     {
+        //select Vessel informations
+        public void GetVesselInfo() 
+        {
+            try
+            {
+                string qry = @"SELECT VSLCODE as vessel_code,
+                                      INITIAL as initial
+                                      FROM PMS.PMS_VESSELMF";
+                SqlBase_OleDb db = new SqlBase_OleDb(qry);
+                DataTable tbl = db.GetTable();
+            }
+            catch (Exception exc)
+            {
+
+            }
+        }
+        //select Vessel info 
+        public void GetStatusInfo()
+        {
+            try
+            {
+                string qry = @"SELECT ST_CODE as st_code,
+                                      ST_DESC as st_desc,
+                                      DOC_TYPE as doc_type,
+                                      ORDER_NO as order_no
+                                      FROM PMS.STATUS_MF where UPDFLAG<>'D'";
+                SqlBase_OleDb db = new SqlBase_OleDb(qry);
+                DataTable tbl = db.GetTable();
+            }
+            catch (Exception exc)
+            {
+
+            }
+        }
+        //To get setup info
+        public void GetSetupInfo()
+        {
+            try
+            {
+                string qry = @"SELECT JO_PREFIX as jo_prefix,
+                                      JO_SUFFIX as jo_suffix,
+                                      ID_PREFIX as id_prefix,
+                                      ID_SUFFIX as id_suffix
+                                      FROM PMS.SETUP";
+                SqlBase_OleDb db = new SqlBase_OleDb(qry);
+                DataTable tbl = db.GetTable();
+            }
+            catch (Exception exc)
+            {
+
+            }
+        }
         public void GetAllVendorNames(string VSLCode,string Zone) // selecting all the vendor names 
         {
             try
@@ -196,20 +248,20 @@ namespace sqlBase
             {
                 Console.WriteLine("{0} Exception caught.", exc);
             }
-        }/*
+        }
+        /*
          *  To retrieve active main Equipments of a Vessel 
         */
         public void GetEquipments(string VSLCode)
         {
             try
             {
-                string qry = @"SELECT ZONE as Zone,
-                                   VSLCODE as VSLCode,
-                                     EQ_NO as EQNO,
-                                   EQ_NAME as EQName,
-                                   UPDFLAG as UPDFlag,
-                                  CEQ_CODE as CEQCode,
-                                   EQ_CODE as EQCode 
+                string qry = @"SELECT ZONE as zone,
+                                     EQ_NO as eq_number,
+                                   EQ_NAME as eq_name,
+                                   UPDFLAG as upd_flag,
+                                  CEQ_CODE as ceq_code,
+                                   EQ_CODE as eq_code 
                                       FROM PURCHASE.EQ_MF
                                      WHERE VSLCODE=" + VSLCode + "AND UPDFLAG<>'D' AND RH_ENTRY = 1 ORDER BY CEQ_CODE";
                 SqlBase_OleDb db = new SqlBase_OleDb(qry);
