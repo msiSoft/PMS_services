@@ -16,9 +16,9 @@ namespace sqlBase
                 string flg = "'D'";
 
                 string qry = @"SELECT DISTINCT  PO_HD.ZONE,
-                                                PO_HD.CPO_NO,  
-                                                PO_HD.PO_NO, 
-                                                PO_HD.VD_CODE
+                                                PO_HD.CPO_NO as cpo_number,  
+                                                PO_HD.PO_NO as po_number, 
+                                                PO_HD.VD_CODE as vd_code 
 	                                            FROM PURCHASE.PO_HD,
                                                      PURCHASE.PO_DT
 	                                            WHERE 	PO_HD.PO_NO = PO_DT.PO_NO
@@ -38,20 +38,20 @@ namespace sqlBase
             }
         }
 
-        public void GetAllPODetails(string VSLCode, string Zone) // getting item details from PURCHASE.ID_FINAL_DT corresponding to the vslcode 
+        public void GetAllPODetails(string VSLCode, string Zone) // getting item details from PURCHASE.ID_FINAL_DT corresponding to the vslcode  and  zone 
         {
             try
             {
 
                 string qry = @"SELECT DISTINCT 
-                                      F.IM_CODE,
-                                      F.PO_NO,
-                                      H.PO_DATE,  
-                                      F.REQ_QTY,
+                                      F.IM_CODE as item_code,
+                                      F.PO_NO as po_number,
+                                      H.PO_DATE as po_date,  
+                                      F.REQ_QTY as requested_qty,
                                       F.IV_QTY,
                                       F.ORDER_NO,
                                       F.TD_QTY,
-                                      F.PO_IM_QTY,
+                                      F.PO_IM_QTY as ordered_qty,
                                       F.PO_IV_RECD_QTY,
                                       F.PO_GRV_RECD_QTY,
                                       F.PO_GRV_CLOSED,
