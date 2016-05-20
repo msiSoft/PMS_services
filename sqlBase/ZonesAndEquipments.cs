@@ -9,149 +9,34 @@ namespace sqlBase
 {
     public class ZonesAndEquipments
     {
-        /*
-         *  To retrieve active main Equipments of a Vessel 
-        */
-        public void GetEquipments(string VSLCode)
-        {
-            try
-            {
-                string qry = @"SELECT ZONE as Zone,
-                                   VSLCODE as VSLCode,
-                                     EQ_NO as EQNO,
-                                   EQ_NAME as EQName,
-                                   UPDFLAG as UPDFlag,
-                                  CEQ_CODE as CEQCode,
-                                   EQ_CODE as EQCode 
-                                      FROM PURCHASE.EQ_MF
-                                     WHERE VSLCODE=" + VSLCode + "AND UPDFLAG<>'D' AND RH_ENTRY = 1 ORDER BY CEQ_CODE";
-                SqlBase_OleDb db = new SqlBase_OleDb(qry);
-                DataTable tbl = db.GetTable();
-
-                //foreach (DataRow r in tbl.Rows)
-                //{
-                //    Console.WriteLine("  {0}", r["AIRNAME"]);
-                //}
-            }
-            catch (Exception exc)
-            {
-
-            }
-        }
-        /*
-         * To retrieve active Zones of a Vessel
-        */
-        public void GetZones(string VSLCode)
-        {
-            try
-            {
-                string qry = @"SELECT ST_CODE as STCode,
-                                      ST_DESC as STDESC,
-                                     DOC_TYPE as DOCType,
-                                      VSLCODE as VSLCode,
-                                      UPDFLAG as UPDFlag,
-                                     ORDER_NO as OrderNO,
-                                    PROG_CODE as PROGCode,
-                                     DELETEDT as DeleteDT
-                                         FROM PMS.STATUS_MF  
-                                        WHERE UPDFLAG<>'D' AND VSLCODE=" + VSLCode;
-                SqlBase_OleDb db = new SqlBase_OleDb(qry);
-                DataTable tbl = db.GetTable();
-
-                //foreach (DataRow r in tbl.Rows)
-                //{
-                //    Console.WriteLine("  {0}", r["AIRNAME"]);
-                //}
-            }
-            catch (Exception exc)
-            {
-
-            }
-        }
-
-        /*
-         * To retrieve current running hour of all active equipments
-        */
-        public void GetEquipmentsPresentRunningHours(string VSLCode)
-        {
-            try
-            {
-                string qry = @"SELECT EQ_CODE as EQCode,
-                                      VSLCODE as VSLCode,
-                                  RH_PREVIOUS as RHPrevious,
-                                       RH_ADD as RHAdd,
-                                   READING_DT as ReadingDT,
-                                   READING_BY as ReadingBy,
-                                  AVG_PER_DAY as AVGPerDay,
-                                        DE_BY as DEBy,
-                                        DE_AT as DEAt,
-                                      UPDFLAG as UPDFlag,
-                                  LAST_RH_ADD as LastRHAdd,
-                              LAST_READING_DT as LastReadingDT,
-                              LAST_READING_BY as LastReadingBy,            
-                                     DELETEDT as DeleteDT
-                                         FROM PMS.RH_ENTRY 
-                                        WHERE UPDFLAG<>'D' AND VSLCODE=" + VSLCode + " ORDER BY EQ_CODE";
-                SqlBase_OleDb db = new SqlBase_OleDb(qry);
-                DataTable tbl = db.GetTable();
-
-                //foreach (DataRow r in tbl.Rows)
-                //{
-                //    Console.WriteLine("  {0}", r["AIRNAME"]);
-                //}
-            }
-            catch (Exception exc)
-            {
-
-            }
-        }
-
-        /*
-         * To retrieve previous running hour of all active equipments
-        */
-        public void GetEquipmentsPreviousRunningHours(string VSLCode)
-        {
-            try
-            {
-                string qry = @"SELECT EQ_CODE as EQCode,
-                                      VSLCODE as VSLCode,
-                                  RH_PREVIOUS as RHPrevious,
-                                       RH_ADD as RHAdd,
-                                   READING_DT as ReadingDT,
-                                   READING_BY as ReadingBy,
-                                  AVG_PER_DAY as AVGPerDay,
-                                        DE_BY as DEBy,
-                                        DE_AT as DEAt,
-                                      UPDFLAG as UPDFlag,
-                                  LAST_RH_ADD as LastRHAdd,
-                              LAST_READING_DT as LastReadingDT,
-                              LAST_READING_BY as LastReadingBy,            
-                                     DELETEDT as DeleteDT
-                                         FROM PMS.RH_ENTRY_LOG 
-                                        WHERE UPDFLAG<>'D' AND VSLCODE=" + VSLCode + " ORDER BY EQ_CODE";
-                SqlBase_OleDb db = new SqlBase_OleDb(qry);
-                DataTable tbl = db.GetTable();
-
-                //foreach (DataRow r in tbl.Rows)
-                //{
-                //    Console.WriteLine("  {0}", r["AIRNAME"]);
-                //}
-            }
-            catch (Exception exc)
-            {
-
-            }
-        }
+        
         /*Insert or update Running Hour in running hour related tables*/
         public void SetRH(RunningHour RH)
         {
             try
             {
-                string maxPerDay = "";
-                string avgPerDay = "";
-                if (GetEquipmentDetails(RH.eq_code) <= 0)
-                {         
-                    string qry = @"INSERT INTO PMS.RH_ENTRY (VSLCODE, 
+                decimal avgPerDay = SaveInRHEntry(RH);
+                SetRHInEquipment(RH);
+                SetJobOrder(RH, avgPerDay);
+            }
+            catch (Exception exc)
+            {
+
+            }
+        }
+        /*Insert or Update values in PMS.RH_ENTRY table*/
+        public decimal SaveInRHEntry(RunningHour RH)
+        {
+            decimal avgPerDay;
+
+            DBOperations db = new DBOperations();
+            object avgDailyHrs = db.ExecuteScalarOnSourceDB("SELECT AVG_DAILY_HRS FROM PMS.SETUP");
+            decimal setUpAvgDailyHrs = Convert.ToDecimal(avgDailyHrs != null ? avgDailyHrs : 0);
+
+            if (GetEquipmentDetails(RH.eq_code) <= 0)
+            {
+                avgPerDay = setUpAvgDailyHrs;
+                string qry = @"INSERT INTO PMS.RH_ENTRY (VSLCODE, 
                                                                 EQ_CODE, 
                                                                 RH_PREVIOUS, 
                                                                 RH_ADD,
@@ -166,46 +51,53 @@ namespace sqlBase
                                                                 MAX_PER_DAY,
                                                                 AVG_PER_DAY)
                                     VALUES   ('" + RH.vessel_code +
-                                                "','" + RH.eq_code +
-                                                "','" + RH.rh_previous +
-                                                "','" + RH.rh_add +
-                                                "','" + RH.data_entered_date +
-                                                "','" + RH.data_entered_by +
-                                                "','" + '$' + RH.data_entered_by +
-                                                "','" + RH.data_entered_date +
-                                                "','" + 'C' +
-                                                "','" + RH.last_rh_add +
-                                                "','" + RH.last_data_entered_date +
-                                                "','" + RH.last_data_entered_by +
-                                                "','" + maxPerDay +
-                                                "','" + avgPerDay + "')";
-                    DBOperations UI = new DBOperations();
-                    int result = UI.OperationsOnSourceDB(qry);
-                }
-                else
-                {
-                    string qry = @"UPDATE PMS.RH_ENTRY SET 
-                                                            RH_PREVIOUS = '" + RH.rh_previous +
-                                                            "',RH_ADD = '" + RH.rh_add +
-                                                            "',READING_DT = '" + RH.data_entered_date +
-                                                            "',READING_BY = '" + RH.data_entered_by +
-                                                            "',DE_BY = '" + '$' + RH.data_entered_by +
-                                                            "',DE_AT = '" + RH.data_entered_date +
-                                                            "',LAST_RH_ADD = '" + RH.last_rh_add +
-                                                            "',LAST_READING_DT = '" + RH.last_data_entered_date +
-                                                            "',LAST_READING_BY = '" + RH.last_data_entered_by +
-                                                            "',MAX_PER_DAY = '" + maxPerDay +
-                                                            "',AVG_PER_DAY = '" + avgPerDay +
-                                                "' WHERE   EQ_CODE   ='" + RH.eq_code + "'";
-                    DBOperations UI = new DBOperations();
-                    int result = UI.OperationsOnSourceDB(qry);
-                }
-              
+                                            "','" + RH.eq_code +
+                                            "','" + RH.rh_previous +
+                                            "','" + RH.rh_add +
+                                            "','" + RH.data_entered_date +
+                                            "','" + RH.data_entered_by +
+                                            "','" + '$' + RH.data_entered_by +
+                                            "','" + RH.data_entered_date +
+                                            "','" + 'C' +
+                                            "','" + RH.last_rh_add +
+                                            "','" + RH.last_data_entered_date +
+                                            "','" + RH.last_data_entered_by +
+                                            "','" + avgPerDay +
+                                            "','" + avgPerDay + "')";
+                DBOperations UI = new DBOperations();
+                int result = UI.OperationsOnSourceDB(qry);
             }
-            catch (Exception exc)
+            else
             {
 
+                DateTime dataEnteredDate = DateTime.ParseExact(RH.data_entered_date, "dd-MMM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                DateTime lastDataEnteredDate = DateTime.ParseExact(RH.last_data_entered_date, "dd-MMM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                decimal diffInDate = (dataEnteredDate - lastDataEnteredDate).Days;
+                avgPerDay = (RH.rh_current - RH.rh_previous) / (diffInDate);
+
+                if (avgPerDay > 24)
+                    avgPerDay = 24;
+                else if (avgPerDay < setUpAvgDailyHrs)
+                    avgPerDay = setUpAvgDailyHrs;
+
+
+                string qry = @"UPDATE PMS.RH_ENTRY SET 
+                                                           RH_PREVIOUS = '" + RH.rh_previous +
+                                                        "',RH_ADD = '" + RH.rh_add +
+                                                        "',READING_DT = '" + RH.data_entered_date +
+                                                        "',READING_BY = '" + RH.data_entered_by +
+                                                        "',DE_BY = '" + '$' + RH.data_entered_by +
+                                                        "',DE_AT = '" + RH.data_entered_date +
+                                                        "',LAST_RH_ADD = '" + RH.last_rh_add +
+                                                        "',LAST_READING_DT = '" + RH.last_data_entered_date +
+                                                        "',LAST_READING_BY = '" + RH.last_data_entered_by +
+                                                        "',MAX_PER_DAY = '" + avgPerDay +
+                                                        "',AVG_PER_DAY = '" + avgPerDay +
+                                            "' WHERE   EQ_CODE   ='" + RH.eq_code + "'";
+
+                int result = db.OperationsOnSourceDB(qry);
             }
+            return avgPerDay;
         }
         /*Get equipment details w.r.t EQ_CODE*/
         public long GetEquipmentDetails(string EQCode)
@@ -225,7 +117,6 @@ namespace sqlBase
             }
             return rowCount;
         }
-
         /*Insert or update Running Hour in running hour related tables*/
         public void SaveRHHistory(RunningHour RH)
         {
@@ -254,10 +145,10 @@ namespace sqlBase
                                             "','" + 'C' +
                                             "','" + RH.last_rh_add +
                                             "','" + RH.last_data_entered_date +
-                                            "','" + RH.last_data_entered_by +"')";
+                                            "','" + RH.last_data_entered_by + "')";
                 DBOperations UI = new DBOperations();
                 int result = UI.OperationsOnSourceDB(qry);
-              
+
             }
             catch (Exception exc)
             {
@@ -278,15 +169,15 @@ namespace sqlBase
 
                 string childEqQry = @"UPDATE PURCHASE.EQ_MF SET 
                                                    RH_PRESENT = '" + RH.rh_current +
-                                                    "' WHERE VSLCODE = '"+ RH.vessel_code+ "' AND INH_RUNHRS_EQ = '" + RH.eq_code + "'";
+                                                    "' WHERE VSLCODE = '" + RH.vessel_code + "' AND INH_RUNHRS_EQ = '" + RH.eq_code + "'";
                 result = dbO.OperationsOnSourceDB(childEqQry);
 
-            }catch(Exception exc)
+            }
+            catch (Exception exc)
             {
 
             }
         }
-
         public DataRow GetStatusCode()
         {
             DataRow dr = null;
@@ -297,16 +188,16 @@ namespace sqlBase
                                       WHERE DOC_TYPE = 'JO' AND PROG_CODE='NS' AND UPDFLAG <>'D'";
                 SqlBase_OleDb db = new SqlBase_OleDb(qry);
                 dr = db.GetRow();
-                
+
             }
             catch (Exception exc)
             {
 
             }
-                return dr;
+            return dr;
         }
         /*Update current RH in Equipment table*/
-        public void SetJobOrder(RunningHour RH)
+        public void SetJobOrder(RunningHour RH, decimal avgPerDay)
         {
             try
             {
@@ -315,8 +206,8 @@ namespace sqlBase
 
                 string qry = @"SELECT JO_CODE,JP_CODE,PLAN_DUE_HRS
                                       FROM PMS.JOB_ORDER
-                                      WHERE VSLCODE = '"+RH.vessel_code+"' AND FQ_TYPE ='H' AND PLAN_DUE_HRS >=0 AND JO_ST_CODE ='"+stCode+
-                                      "' AND UPDFLAG <> 'D' AND EQ_CODE IN (SELECT EQ_CODE FROM PURCHASE.EQ_MF WHERE VSLCODE = '"+RH.vessel_code+"' AND(EQ_CODE = '"+RH.eq_code+"'OR INH_RUNHRS_EQ = '"+RH.eq_code+"') AND UPDFLAG <> 'D')";
+                                      WHERE VSLCODE = '" + RH.vessel_code + "' AND FQ_TYPE ='H' AND PLAN_DUE_HRS >=0 AND JO_ST_CODE ='" + stCode +
+                                      "' AND UPDFLAG <> 'D' AND EQ_CODE IN (SELECT EQ_CODE FROM PURCHASE.EQ_MF WHERE VSLCODE = '" + RH.vessel_code + "' AND(EQ_CODE = '" + RH.eq_code + "'OR INH_RUNHRS_EQ = '" + RH.eq_code + "') AND UPDFLAG <> 'D')";
 
                 SqlBase_OleDb db = new SqlBase_OleDb(qry);
                 DataTable tbl = db.GetTable();
@@ -324,39 +215,33 @@ namespace sqlBase
                 foreach (DataRow row in tbl.Rows)
                 {
                     decimal planDueHrs = decimal.Parse(row["PLAN_DUE_HRS"].ToString(), CultureInfo.InvariantCulture);
-                    decimal roundOff = ((planDueHrs - RH.rh_current) / RH.avg_per_day);
+                    decimal roundOff = ((planDueHrs - RH.rh_current) / avgPerDay);
                     TimeSpan ts = TimeSpan.FromHours(Decimal.ToDouble(roundOff));
 
-                    DateTime dt = DateTime.ParseExact(RH.data_entered_date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                    
+                    DateTime dt = DateTime.ParseExact(RH.data_entered_date, "dd-MMM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+
                     DateTime readingAt = dt + ts;
 
                     int result;
                     string parentQry = @"UPDATE PMS.JOB_ORDER SET 
-                                                RHPLAN_DUE_DT = '" + RH.rh_current +
-                                                "',PLAN_DUE_DATE = '"+ RH.rh_current +
-                                                "',JO_START_DT = '" + RH.rh_current +
+                                                RHPLAN_DUE_DT = '" + readingAt +
+                                                "',PLAN_DUE_DATE = '" + readingAt +
+                                                "',JO_START_DT = '" + readingAt +
                                                 "',DE_AT = '" + RH.data_entered_date +
-                                                "',DE_BY =$'" + RH.data_entered_by +
-                                                "',UPDFLAG = 'C' WHERE VSLCODE = '" + RH.vessel_code + "' AND JO_CODE = '" + row["JO_CODE"].ToString();
+                                                "',DE_BY ='$" + RH.data_entered_by +
+                                                "',UPDFLAG = 'C' WHERE VSLCODE = '" + RH.vessel_code + "' AND JO_CODE = '" + row["JO_CODE"].ToString() + "'";
                     DBOperations dbO = new DBOperations();
                     result = dbO.OperationsOnSourceDB(parentQry);
 
 
-                    //                    UPDATE pms.job_plan
-                    //SET     FQ_LENGTH = CFQ_LENGTH / :frmRHEntry.tblRH.colAvgPerDay,
-                    //       	next_due_date = :frmRHEntry.dtReadingAt ,
-                    //	de_at = SYSDATETIME,
-                    //	de_by = :strUser
-                    //WHERE                jp_code =            :frmRHEntry.strJP_Code
-                    //And                        vslcode =             :frmRHEntry.strVslCode ")
-
+                    decimal cfqLength = Convert.ToDecimal(dbO.ExecuteScalarOnSourceDB("SELECT CFQ_LENGTH FROM PMS.JOB_PLAN"));
+                    decimal fqLength = cfqLength / avgPerDay;
 
                     string jobPlanQry = @"UPDATE PMS.JOB_PLAN SET 
-                                                CFQ_LENGTH = '" + RH.rh_current +
+                                                FQ_LENGTH = '" + fqLength +
                                                 "',NEXT_DUE_DATE = '" + readingAt +
                                                 "',DE_AT = '" + RH.data_entered_date +
-                                                "',DE_BY =$'" + RH.data_entered_by +
+                                                "',DE_BY ='$" + RH.data_entered_by +
                                                 "'WHERE VSLCODE = '" + RH.vessel_code + "' AND JP_CODE = '" + row["JP_CODE"].ToString();
                     result = dbO.OperationsOnSourceDB(jobPlanQry);
 
@@ -367,7 +252,5 @@ namespace sqlBase
 
             }
         }
-
-
     }
 }
