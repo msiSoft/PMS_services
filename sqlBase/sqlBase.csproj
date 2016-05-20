@@ -62,7 +62,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calculation.cs" />
     <Compile Include="Classes\POFinal.cs" />
     <Compile Include="Classes\POHdr.cs" />
     <Compile Include="Common.cs" />
@@ -74,12 +73,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Purchase.cs" />
     <Compile Include="Requisition.cs" />
-    <Compile Include="RequisitionSelect.cs" />
     <Compile Include="RunningHour.cs" />
     <Compile Include="SqlBase_OleDb.cs" />
     <Compile Include="TakeStock.cs" />
     <Compile Include="TakeStockDisplay.cs" />
-    <Compile Include="Update_Insert.cs" />
     <Compile Include="WorksDone.cs" />
     <Compile Include="ZonesAndEquipments.cs" />
   </ItemGroup>
