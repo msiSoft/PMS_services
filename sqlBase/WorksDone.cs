@@ -64,6 +64,7 @@ namespace sqlBase
         public string jb_code           { get; set; }
         public string jo_org_date       { get; set; }
         public string jo_org_hrs        { get; set; }
+        public string fq_name           { get; set; }
 
         public void WorksDoneUpdJP (WorksDone WorksDone)
 
@@ -71,6 +72,8 @@ namespace sqlBase
             try
 
             {
+
+
                 string qrry = @"SELECT            FREQ_MF.FQ_TYPE as      FQ_TYPE, 
                                                JOB_PLAN.FQ_LENGTH as    FQ_LENGTH, 
                                            JOB_PLAN.FQ_LENGTH_HRS as FQ_LENGTH_HR,
@@ -85,6 +88,10 @@ namespace sqlBase
                                                                              " AND   JOB_PLAN.UPDFLAG  <> 'D'";
                 SqlBase_OleDb db = new SqlBase_OleDb(qrry);
                 DataTable tbl = db.GetTable();
+                decimal cfq_length = Convert.ToDecimal(tbl.Rows[0]["CFQ_LENGTH"]);
+                string fq_name = tbl.Rows[0]["FQ_NAME"].ToString();
+                string jp_code = WorksDone.jp_code;
+                WorksDonesCalculation(fq_name, cfq_length, jp_code);
 
 
                 if (tbl.Rows[0]["FQ_TYPE"].ToString() == "C")
@@ -167,7 +174,7 @@ namespace sqlBase
                                                         "',"  + WorksDone.data_entered_date + "')";
                                                         
                 DBOperations UI = new DBOperations();
-                //int result = UI.OperationsOnSourceDB(qry, SQLBaseDB.DBIMAGE);
+                int result = UI.OperationsOnSourceDB(qry, SQLBaseDB.DBIMAGE);
             }
             catch (Exception exc)
 
@@ -186,20 +193,20 @@ namespace sqlBase
                                                                             IM_CODE, 
                                                                           CODE_TYPE, 
                                                                        QTY_CONSUMED,
-                                                                                VSLCODE, 
-                                                                                DE_BY, 
-                                                                                DE_AT,
-                                                                                     )
-                                     VALUES                ('"   + WorksDone.jo_code +
-                                                        "'," + WorksDone.item_code +
-                                                        "'," + WorksDone.code_type +
-                                                        "'," + WorksDone.qty_consumed +
+                                                                            VSLCODE, 
+                                                                              DE_BY, 
+                                                                              DE_AT,
+                                                                                   )
+                                     VALUES                ('"+ WorksDone.jo_code +
+                                                        "',"  + WorksDone.item_code +
+                                                        "',"  + WorksDone.code_type +
+                                                        "',"  + WorksDone.qty_consumed +
                                                          "'," + WorksDone.vessel_code +
-                                                        "'," + WorksDone.data_entered_by +
-                                                        "'," + WorksDone.data_entered_date + "')";
+                                                        "',"  + WorksDone.data_entered_by +
+                                                        "',"  + WorksDone.data_entered_date + "')";
 
                 DBOperations UI = new DBOperations();
-                //int result = UI.OperationsOnSourceDB(qry, SQLBaseDB.DBIMAGE);
+                int result = UI.OperationsOnSourceDB(qry, SQLBaseDB.DBIMAGE);
             }
             catch (Exception exc)
 
@@ -409,18 +416,24 @@ namespace sqlBase
 
         public void WorksDonesCalculation(string fq_name, decimal cfq_length, string jp_code)
         {
+            
             switch (fq_name)
             {
+               
                 case "YEAR":
+                    string res = (cfq_length *1) + jo_end_date;
                     break;
                 case "DAY":
+                    string res1 = (cfq_length * 1) + jo_end_date;
                     break;
                 case "WEEK":
+                    string res2 = (cfq_length * 7) + jo_end_date;
                     break;
                 case "MONTH":
-                    break;
+                    string res3 = (cfq_length * 1) + jo_end_date;
+                    break;                    
             }
-            return;
+            return ;
         }
 
     }
