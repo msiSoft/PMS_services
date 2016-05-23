@@ -8,7 +8,7 @@ namespace sqlBase
 {
     public class Common
     {
-        //select Vessel informations
+        //Fetch Vessel informations
         public void GetVesselInfo() 
         {
             try
@@ -284,16 +284,12 @@ namespace sqlBase
         {
             try
             {
-                string qry = @"SELECT ST_CODE as STCode,
-                                      ST_DESC as STDESC,
-                                     DOC_TYPE as DOCType,
-                                      VSLCODE as VSLCode,
-                                      UPDFLAG as UPDFlag,
-                                     ORDER_NO as OrderNO,
-                                    PROG_CODE as PROGCode,
-                                     DELETEDT as DeleteDT
+                string qry = @"SELECT ST_DESC as zone,
+                                     ORDER_NO as order
                                          FROM PMS.STATUS_MF  
-                                        WHERE UPDFLAG<>'D' AND VSLCODE=" + VSLCode;
+                                        WHERE DOC_TYPE ='LO' AND UPDFLAG<>'D' AND ST_CODE
+                                           IN (SELECT DISTINCT LC_ST_CODE FROM PURCHASE.EQ_MF WHERE VSLCODE ='"+ VSLCode +"')";
+
                 SqlBase_OleDb db = new SqlBase_OleDb(qry);
                 DataTable tbl = db.GetTable();
 
