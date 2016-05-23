@@ -16,15 +16,15 @@ namespace sqlBase
         static void Main(string[] args)
         {
             
-            //zone= (string)ExecuteScalarOnSourceDB("SELECT ZONE FROM PMS.SETUP");
+            zone= (string)ExecuteScalarOnSourceDB("SELECT ZONE FROM PMS.SETUP");
 
-            ////ZonesAndEquipments ZE = new ZonesAndEquipments();
-            ////ZE.GetEquipments("400.0000000024");
-            //Common MasterData = new Common();
-            //MasterData.GetAllVendorNames("400.0000000024", zone);// Get all the available vendors for the vessel
-            //Purchase PR = new Purchase();
-            //PR.GetPONumbers("400.0000000024", zone); // Get all the PO numbers for the vessel
-            //PR.GetAllPODetails("400.0000000024", zone); // Get all the item details for the vessel
+            //ZonesAndEquipments ZE = new ZonesAndEquipments();
+            //ZE.GetEquipments("400.0000000024");
+            Common MasterData = new Common();
+            MasterData.GetAllVendorNames("400.0000000024", zone);// Get all the available vendors for the vessel
+            Purchase PR = new Purchase();
+            PR.GetPONumbers("400.0000000024", zone); // Get all the PO numbers for the vessel
+            PR.GetAllPODetails("400.0000000024", zone); // Get all the item details for the vessel
             ////PR.ReceiveGoods();
 
 
@@ -61,8 +61,8 @@ namespace sqlBase
             //pdtl.SavePurchaseDtl(vslcode, grvno_auto, pdtl, purchaseHdr.vd_code);
 
             //for Take Stock
-            //TakeStockDisplay TD = new TakeStockDisplay();
-            //TD.GetStoreItems('I');
+            Common TD = new Common();
+            TD.GetStoreItems();
             //TD.GetSpareItems("400.0000000024");
             //TD.GetStock("400.0000000024");
 
@@ -104,21 +104,16 @@ namespace sqlBase
             //RS.eq_number = " 50000";
 
             //RS.SaveRequisitionUpd(RS);
-            //RecieveGoods();
-            //WorksDone
-
             WorksDone WD = new WorksDone();
-
-            //WD.fq_type = 'H';
-            //WD.next_due_date = "20-JUN-2018 00:00:00";
-            //WD.last_done_date = " 08-MAR-2015";
-            //WD.updflag = "C";
-            //WD.jp_code = "UNIX.0000012584";
-            //WD.next_due_hrs = "38943";
-            //WD.last_done_hrs = "28943";
-            WD.jo_end_date = "12-NOV-2014";
-            WD.jp_code = "UNIX.0000012793";
+            WD.fq_type = 'C';
+            WD.next_due_date = "20-JUN-2018 00:00:00";
+            WD.last_done_date = " 08-MAR-2015";
+            WD.updflag = "C";
+            WD.jp_code = "UNIX.0000012584";
+            WD.next_due_hrs = "38943";
+            WD.last_done_hrs = "28943";
             WD.WorksDoneUpdJP(WD);
+            RecieveGoods();
         }
         public static void RecieveGoods()
         {
