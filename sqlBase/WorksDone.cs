@@ -220,7 +220,7 @@ namespace sqlBase
                                                         "', 'C')";
 
                 DBOperations UI = new DBOperations();
-                int result = UI.OperationsOnSourceDB(qry, SQLBaseDB.DBIMAGE);
+                int result = UI.OperationsOnSourceDB(qry);
             }
             catch (Exception exc)
 
@@ -293,7 +293,7 @@ namespace sqlBase
                                                         "'," + WorksDone.data_entered_date + "')";
 
                 DBOperations UI = new DBOperations();
-                //int result = UI.OperationsOnSourceDB(qry, SQLBaseDB.DBIMAGE);
+                int result = UI.OperationsOnSourceDB(qry);
             }
             catch (Exception exc)
 
@@ -327,7 +327,7 @@ namespace sqlBase
                                                         "'," + WorksDone.data_entered_date + "')";
 
                 DBOperations UI = new DBOperations();
-                //int result = UI.OperationsOnSourceDB(qry, SQLBaseDB.DBIMAGE);
+                int result = UI.OperationsOnSourceDB(qry);
             }
             catch (Exception exc)
 
@@ -400,7 +400,7 @@ namespace sqlBase
                                                         "',N'')";
 
                 DBOperations UI = new DBOperations();
-                //int result = UI.OperationsOnSourceDB(qry, SQLBaseDB.DBIMAGE);
+                int result = UI.OperationsOnSourceDB(qry);
             }
             catch (Exception exc)
 
