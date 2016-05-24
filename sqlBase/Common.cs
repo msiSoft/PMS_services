@@ -169,7 +169,7 @@ namespace sqlBase
         }
 
 
-        public void GetStoreItems(char code_type)
+        public void GetStoreItems()
         {
             try
             {
@@ -185,7 +185,7 @@ namespace sqlBase
                                         DE_BY as data_entered_by,
                                        DE_AT as data_entered_date                                             
                                                              FROM    PURCHASE.ITEM_MF 
-                                                            WHERE    UPDFLAG<>'D' AND CODE_TYPE='" + code_type + "'";
+                                                            WHERE    UPDFLAG<>'D'";
                 SqlBase_OleDb db = new SqlBase_OleDb(qry);
                 DataTable tbl = db.GetTable();
             }

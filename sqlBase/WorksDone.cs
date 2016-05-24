@@ -65,6 +65,8 @@ namespace sqlBase
         public string jo_org_date       { get; set; }
         public string jo_org_hrs        { get; set; }
         public string fq_name           { get; set; }
+        public string priority_code     { get; set; }
+        public string file              { get; set; }
 
         public void WorksDoneUpdJP (WorksDone WorksDone)
 
@@ -90,14 +92,16 @@ namespace sqlBase
                 DataTable tbl = db.GetTable();
                 decimal cfq_length = Convert.ToDecimal(tbl.Rows[0]["CFQ_LENGTH"]);
                 string fq_name = tbl.Rows[0]["FQ_NAME"].ToString();
-                string jp_code = WorksDone.jp_code;
-                WorksDonesCalculation(fq_name, cfq_length, jp_code);
+                string jp_code = WorksDone.jp_code;              
+               
 
 
                 if (tbl.Rows[0]["FQ_TYPE"].ToString() == "C")
 
-                {                          
-                    string qry = @"UPDATE PMS.JOB_PLAN  SET       NEXT_DUE_DATE   = '" + WorksDone.next_due_date +
+                {
+                  string res = WorksDonesCalculation(fq_name, cfq_length, jp_code).ToString();
+
+                    string qry = @"UPDATE PMS.JOB_PLAN  SET       NEXT_DUE_DATE   = '" + res +
                                                               "', LAST_DONE_DATE  = '" + WorksDone.jo_end_date +
                                                               "', UPDFLAG         = '" + WorksDone.updflag +
                                                         "' WHERE  JP_CODE         = '" + WorksDone.jp_code + "'";
@@ -108,7 +112,8 @@ namespace sqlBase
                 else if (tbl.Rows[0]["FQ_TYPE"].ToString() == "H")
 
                 {
-                    string qry = @"UPDATE PMS.JOB_PLAN  SET       NEXT_DUE_DATE   = '" + WorksDone.next_due_date +
+                    string res = cfq_length + jo_end_date;
+                    string qry = @"UPDATE PMS.JOB_PLAN  SET       NEXT_DUE_DATE   = '" + res +
                                                               "', LAST_DONE_DATE  = '" + WorksDone.last_done_date +
                                                               "', NEXT_DUE_HRS    = '" + WorksDone.next_due_hrs +
                                                               "', LAST_DONE_HRS   = '" + WorksDone.last_done_hrs +
@@ -131,7 +136,9 @@ namespace sqlBase
             try
 
             {
-                string qry = @"UPDATE PMS.JOB_ORDER SET               CJO_CODE              =   '" + WorksDone.cjo_code +
+                string qry = @"UPDATE PMS.JOB_ORDER   SET             CJO_CODE              =   '" + WorksDone.cjo_code +
+                                                      "',             JP_CODE               =   '" + WorksDone.jp_code +
+                                                      "',             PRIORITY_ST_CODE      =   '" + WorksDone.jp_code +
                                                       "',             JO_TITLE              =   '" + WorksDone.jo_title +
                                                       "',             JO_DESC	            =   '" + WorksDone.jo_description +
                                                       "',             CONDITION_BEFORE      =   '" + WorksDone.condition_before +
@@ -139,11 +146,14 @@ namespace sqlBase
                                                       "',             JO_ST_CODE            =   '" + WorksDone.jo_status_code +
                                                       "',             JO_START_DT           =   '" + WorksDone.jo_start_date +
                                                       "',             JO_END_DT             =   '" + WorksDone.jo_end_date +
+                                                      "',             PLAN_DUE_DATE         =   '" + WorksDone.jo_start_date +
+                                                      "',             JO_ESTEND_DT          =   '" + WorksDone.jo_end_date +
                                                       "',             JO_ASSIGNEDTO         =   '" + WorksDone.jo_assigned_to +
                                                       "',             RESP_CREW_NAME        =   '" + WorksDone.resp_crew_name +
                                                       "',             DE_BY                 =   '" + WorksDone.data_entered_by +
-                                                        "',           DE_AT                 =   '" + WorksDone.data_entered_date +
-                                                     "' WHERE         JO_CODE               =   '" + WorksDone.jo_code + "'";
+                                                      "',             DE_AT                 =   '" + WorksDone.data_entered_date +
+                                                      "' WHERE        JO_CODE               =   '" + WorksDone.jo_code +
+                                                      "' AND          JP_CODE               =   '" + WorksDone.jp_code + "'";     
                 DBOperations UI = new DBOperations();
                 int result = UI.OperationsOnSourceDB(qry);
             }
@@ -163,15 +173,18 @@ namespace sqlBase
                                                                         REF_CODE, 
                                                                         DOC_TYPE, 
                                                                        FILE_TYPE, 
-                                                                         VSLCODE, 
+                                                                         VSLCODE,
+                                                                        FILENAME, 
                                                                            DE_BY, 
-                                                                           DE_AT  )
+                                                                           DE_AT,
+                                                                        UPDFLAG)
                                      VALUES            ('"    + WorksDone.file_code +
                                                         "',"  + WorksDone.jo_code +
-                                                        "' , 'JO' , 'A' , '"
-                                                              + WorksDone.vessel_code +
+                                                        "','JO', 'A', '" + WorksDone.vessel_code +
+                                                        "'," + WorksDone.file +
                                                         "',"  + WorksDone.data_entered_by +
-                                                        "',"  + WorksDone.data_entered_date + "')";
+                                                        "',"  + WorksDone.data_entered_date +
+                                                        "', 'C')";
                                                         
                 DBOperations UI = new DBOperations();
                 int result = UI.OperationsOnSourceDB(qry, SQLBaseDB.DBIMAGE);
@@ -196,14 +209,15 @@ namespace sqlBase
                                                                             VSLCODE, 
                                                                               DE_BY, 
                                                                               DE_AT,
-                                                                                   )
+                                                                             UPDFLAG      )
                                      VALUES                ('"+ WorksDone.jo_code +
                                                         "',"  + WorksDone.item_code +
                                                         "',"  + WorksDone.code_type +
                                                         "',"  + WorksDone.qty_consumed +
                                                          "'," + WorksDone.vessel_code +
                                                         "',"  + WorksDone.data_entered_by +
-                                                        "',"  + WorksDone.data_entered_date + "')";
+                                                        "',"  + WorksDone.data_entered_date +
+                                                        "', 'C')";
 
                 DBOperations UI = new DBOperations();
                 int result = UI.OperationsOnSourceDB(qry, SQLBaseDB.DBIMAGE);
@@ -333,20 +347,14 @@ namespace sqlBase
                                                                     VSLCODE,
                                                                     EQ_CODE,
                                                                     JP_CODE,
-                                                                    JO_CATST_CODE,
-                                                                    JB_CLASS_CODE,
-                                                                    JB_TYPE_CODE,	
                                                                     PRIORITY_ST_CODE,
                                                                     JO_TITLE,	
                                                                     JO_DESC,
                                                                     JO_ST_CODE,
                                                                     JO_START_DT,	
-                                                                    JO_END_DT,
-                                                                    DEPT_CODE,	
+                                                                    JO_END_DT,	
                                                                     JO_ASSIGNEDTO,
-                                                                    RANKCODE,	
                                                                     RESP_CREW_NAME,
-                                                                    JO_PROC,	
                                                                     EST_DURATION,
                                                                     PLAN_DUE_DATE,	
                                                                     PLAN_DUE_HRS,
@@ -359,11 +367,8 @@ namespace sqlBase
                                                                     FQ_LENGTH,	
                                                                     FQ_CODE,
                                                                     CFQ_LENGTH,	
-                                                                    FQ_TYPE,
-                                                                    JB_CODE,	
+                                                                    FQ_TYPE,	
                                                                     LAST_DONE_DATE,
-                                                                    JO_ORG_DATE ,	
-                                                                    JO_ORG_HRS,
                                                                     RA_REQUIRED
                                                                         )
                                      VALUES            (  '" + WorksDone.jo_code +
@@ -371,20 +376,14 @@ namespace sqlBase
                                                         "'," + WorksDone.vessel_code +
                                                         "'," + WorksDone.eq_code +
                                                         "'," + WorksDone.jp_code +
-                                                        "'," + WorksDone.jo_catst_code +
-                                                        "'," + WorksDone.jb_class_code +
-                                                        "'," + WorksDone.jb_type_code +
                                                         "'," + WorksDone.priority_st_code +
                                                         "'," + WorksDone.jo_title +
                                                         "'," + WorksDone.jo_description +
                                                         "'," + WorksDone.jo_status_code +
                                                         "'," + WorksDone.jo_start_date +
                                                         "'," + WorksDone.jo_end_date +
-                                                        "'," + WorksDone.dept_code +
                                                         "'," + WorksDone.jo_assigned_to +
-                                                        "'," + WorksDone.rankcode +
                                                         "'," + WorksDone.resp_crew_name +
-                                                        "'," + WorksDone.jo_proc +
                                                         "'," + WorksDone.est_duration +
                                                         "'," + WorksDone.plan_due_date +
                                                         "'," + WorksDone.plan_due_hrs +
@@ -392,17 +391,13 @@ namespace sqlBase
                                                         "'," + WorksDone.jo_done_hrs +
                                                         "'," + WorksDone.data_entered_by +
                                                         "'," + WorksDone.data_entered_date +
-                                                        "'," + WorksDone.updflag +
-                                                        "'," + WorksDone.jo_estend_dt +
+                                                        "','C'," + WorksDone.jo_estend_dt +
                                                         "'," + WorksDone.fq_length +
                                                         "'," + WorksDone.fq_code +
                                                         "'," + WorksDone.cfq_length +
                                                         "'," + WorksDone.fq_type +
-                                                        "'," + WorksDone.jb_code +
                                                         "'," + WorksDone.last_done_date +
-                                                        "'," + WorksDone.jo_org_date +
-                                                        "'," + WorksDone.jo_org_hrs +
-                                                        "'," + WorksDone.ra_required + "')";
+                                                        "',N'')";
 
                 DBOperations UI = new DBOperations();
                 //int result = UI.OperationsOnSourceDB(qry, SQLBaseDB.DBIMAGE);
@@ -414,26 +409,35 @@ namespace sqlBase
             }
         }
 
-        public void WorksDonesCalculation(string fq_name, decimal cfq_length, string jp_code)
+        public string WorksDonesCalculation(string fq_name, decimal cfq_length, string jp_code)
         {
-            
+            string res = string.Empty;
+            string strDate = jo_end_date;
+            string[] arrDate = strDate.Split('-');
+            string day = arrDate[0].ToString();
+            string month = arrDate[1].ToString();
+            string year = arrDate[2].ToString();
+
             switch (fq_name)
-            {
-               
+
+            {               
                 case "YEAR":
-                    string res = (cfq_length *1) + jo_end_date;
+                    var yr = cfq_length  + year;
+                    res = day + "-" + month + "-" + yr;
+
                     break;
                 case "DAY":
-                    string res1 = (cfq_length * 1) + jo_end_date;
+                   res = (cfq_length * 1) + jo_end_date;
                     break;
                 case "WEEK":
-                    string res2 = (cfq_length * 7) + jo_end_date;
+                   res = (cfq_length * 7) + jo_end_date;
                     break;
                 case "MONTH":
-                    string res3 = (cfq_length * 1) + jo_end_date;
-                    break;                    
+                    var mnth = cfq_length + month;
+                    res = day + "-" + mnth + "-" + year;
+                    break;                                    
             }
-            return ;
+            return res;
         }
 
     }
