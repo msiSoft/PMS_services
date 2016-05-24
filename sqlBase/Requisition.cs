@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -7,32 +8,19 @@ namespace sqlBase
 {
     class Requisition
     {
-        public string aid_no { get; set; }
+        
         public string id_number { get; set; }
         public string eq_number { get; set; }
-        public string zone { get; set; }
         public string vessel_code { get; set; }
         public string item_code { get; set; }
         public string required_qty { get; set; }
         public string deliver_before { get; set; }
-        public string updflag { get; set; }
         public string code_type { get; set; }
-        public string cc_code { get; set; }
-        public string ccm_code { get; set; }
-        public string rob_qty { get; set; }
-        public string order_no { get; set; }
         public string requisition_number { get; set; }
         public string requisition_date { get; set; }
-        public string id_level { get; set; }
-        public string id_reqby { get; set; }
-        public string forw_flag { get; set; }
-        public string po_no { get; set; }
-        public string send { get; set; }
-        public string tp_code { get; set; }
-        public string im_category { get; set; }
-        public string dept_code { get; set; }
-        public string attachment { get; set; }
-        public string fromoff { get; set; }
+        public string data_enetered_date { get; set; }
+        public string data_entered_at { get; set; }
+        public string zone { get; set; }
 
 
 
@@ -42,8 +30,7 @@ namespace sqlBase
         {
             try
             {
-                string qry = @"UPDATE PURCHASE.LASTCODES SET    AID_NO  =   '" + Requisition.aid_no +
-                                                            "', ID_NO   ='" + Requisition.id_number +
+                string qry = @"UPDATE PURCHASE.LASTCODES SET   ID_NO   ='" + Requisition.id_number +
                                                      "' WHERE   EQ_NO   ='" + Requisition.eq_number + "'";
                 DBOperations UI = new DBOperations();
                 int result = UI.OperationsOnSourceDB(qry);
@@ -59,6 +46,14 @@ namespace sqlBase
         {
             try
             {
+
+                string val = @" SELECT  ROB_QTY 
+                                FROM    PURCHASE.STOCK
+                                WHERE IM_CODE ='" + Requisition.item_code ;
+                SqlBase_OleDb db = new SqlBase_OleDb(val);
+                DataTable tbl = db.GetTable();
+                string rob_qty = tbl.Rows[0]["ROB_QTY"].ToString();
+
                 string qry = @"INSERT INTO   PURCHASE.IND_DT (      ZONE, 
                                                                  VSLCODE, 
                                                                    ID_NO, 
@@ -77,12 +72,8 @@ namespace sqlBase
                                           "','" + Requisition.item_code + 
                                        "','" + Requisition.required_qty +
                                      "','" + Requisition.deliver_before + 
-                                            "','" + Requisition.cc_code + 
-                                           "','" + Requisition.ccm_code + 
-                                            "','" + Requisition.rob_qty + 
-                                            "','" + Requisition.updflag + 
-                                          "','" + Requisition.code_type + 
-                                                       "','" + order_no + "')";
+                                            "','Z','Z','" + rob_qty + 
+                                            "','C','" + Requisition.code_type + "')";
                 DBOperations UI = new DBOperations();
                 int result = UI.OperationsOnSourceDB(qry);
 
@@ -94,19 +85,33 @@ namespace sqlBase
             }
         }
 
+        
+
         public void SaveRequisitionInsrtHd(Requisition Requisition)
 
         {
             try
             {
-                   string qry = @"INSERT INTO   PURCHASE.IND_HD (                   ZONE,	   
+
+                string val = @" SELECT  TP_CODE 
+                                FROM    PURCHASE.IM_TYPE";
+                SqlBase_OleDb db = new SqlBase_OleDb(val);
+                DataTable tbl = db.GetTable();
+                string tp_code = tbl.Rows[0]["TP_CODE"].ToString();
+
+                string ans = @" SELECT  DEPT_CODE 
+                                FROM    PURCHASE.DEPARTMENT";
+                SqlBase_OleDb db1 = new SqlBase_OleDb(ans);
+                DataTable tbl1 = db.GetTable();
+                string dept_code = tbl.Rows[0]["DEPT_CODE"].ToString();
+
+                string qry = @"INSERT INTO   PURCHASE.IND_HD (                   ZONE,	   
                                                                                    ID_NO,
                                                                                  VSLCODE,
                                                                                   CID_NO,      
                                                                                  ID_DATE, 
                                                                                CODE_TYPE,
                                                                                 ID_LEVEL,
-                                                                                ID_REQBY,
                                                                                  UPDFLAG,
                                                                                FORW_FLAG,
                                                                                    PO_NO,
@@ -125,20 +130,10 @@ namespace sqlBase
                                                  "','" + Requisition.requisition_number + 
                                                  "','" + Requisition.requisition_date +
                                                           "','" + Requisition.code_type +
-                                                           "','" + Requisition.id_level +
-                                                           "','" + Requisition.id_reqby +
-                                                            "','" + Requisition.updflag +
-                                                          "','" + Requisition.forw_flag +
-                                                              "','" + Requisition.po_no +
-                                                          "','" + Requisition.eq_number +
-                                                            "','" + Requisition.cc_code +
-                                                           "','" + Requisition.ccm_code +
-                                                               "','" + Requisition.send +
-                                                            "','" + Requisition.tp_code +
-                                                        "','" + Requisition.im_category +
-                                                          "','" + Requisition.dept_code +
-                                                         "','" + Requisition.attachment +
-                                                            "','" + Requisition.fromoff + "')";
+                                                           "','N', 'C','Z','Z','" + Requisition.eq_number +
+                                                            "','Z','Z','1','" + tp_code +
+                                                        "','G','" + dept_code +
+                                                         "','0','V')";
                 DBOperations UI = new DBOperations();
                 int result = UI.OperationsOnSourceDB(qry);
 
