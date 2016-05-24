@@ -170,7 +170,7 @@ namespace sqlBase
                                      VALUES                ('" + BreakdownJobs.jo_code +
                                                         "'," + BreakdownJobs.item_code +
                                                         "'," + BreakdownJobs.code_type +
-                                                        "'," + BreakdownJobs.qty_consumed +
+                                                        "'," + BreakdownJobs.qty_consumed + 
                                                          "'," + BreakdownJobs.vessel_code +
                                                         "'," + BreakdownJobs.data_entered_by +
                                                         "'," + BreakdownJobs.data_entered_date +
@@ -185,5 +185,24 @@ namespace sqlBase
                 Console.WriteLine("{ 0} Exception caught.", exc);
             }
         }
+
+        public void BreakdownJobsUpdPL(BreakdownJobs BreakdownJobs)
+
+        {
+            try
+
+            {
+                string qry = @"UPDATE PURCHASE.LASTCODES  SET        TRANS_NO      =   '" + BreakdownJobs.trans_no +
+                                                     "' WHERE        P_VSLCODE     =   'COMMON'";
+                DBOperations UI = new DBOperations();
+                int result = UI.OperationsOnSourceDB(qry);
+            }
+            catch (Exception exc)
+
+            {
+                Console.WriteLine("{ 0} Exception caught.", exc);
+            }
+        }
+
     }
 }
