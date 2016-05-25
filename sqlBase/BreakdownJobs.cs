@@ -7,64 +7,31 @@ namespace sqlBase
 {
     class BreakdownJobs
     {
-        public string next_due_date { get; set; }
-        public string last_done_date { get; set; }
-        public char fq_type { get; set; }
-        public string fq_code { get; set; }
-        public string jq_code { get; set; }
-        public string updflag { get; set; }
-        public string next_due_hrs { get; set; }
-        public string last_done_hrs { get; set; }
+        public string jo_code { get; set; }
         public string cjo_code { get; set; }
+        public string eq_code { get; set; }
+        public string eq_name { get; set; }
         public string jo_title { get; set; }
         public string jo_description { get; set; }
-        public string condition_before { get; set; }
-        public string condition_after { get; set; }
-        public string jo_status_code { get; set; }
         public string jo_start_date { get; set; }
         public string jo_end_date { get; set; }
         public string jo_assigned_to { get; set; }
+        public string condition_before { get; set; }
+        public string condition_after { get; set; }
         public string resp_crew_name { get; set; }
+        public string priority_code { get; set; }
+        public string jo_status_code { get; set; }
         public string data_entered_by { get; set; }
         public string data_entered_date { get; set; }
-        public string jo_code { get; set; }
-        public string qty_consumed { get; set; }
-        public string code_type { get; set; }
-        public string file_code { get; set; }
-        public string doc_type { get; set; }
-        public string vessel_code { get; set; }
         public string item_code { get; set; }
-        public string rob_qty { get; set; }
-        public string total_out { get; set; }
-        public string trans_no { get; set; }
-        public string ctrans_no { get; set; }
-        public string trans_type_code { get; set; }
-        public string dept_code { get; set; }
-        public string eq_code { get; set; }
-        public string trans_qty { get; set; }
-        public string plan_qty { get; set; }
-        public string jp_code { get; set; }
-        public string jo_catst_code { get; set; }
-        public string ra_required { get; set; }
-        public string jb_class_code { get; set; }
-        public string jb_type_code { get; set; }
-        public string priority_st_code { get; set; }
-        public string rankcode { get; set; }
-        public string jo_proc { get; set; }
-        public string est_duration { get; set; }
-        public string plan_due_date { get; set; }
-        public string plan_due_hrs { get; set; }
-        public string jo_duration_hrs { get; set; }
-        public string jo_done_hrs { get; set; }
-        public string jo_estend_dt { get; set; }
-        public string fq_length { get; set; }
-        public string cfq_length { get; set; }
-        public string jb_code { get; set; }
-        public string jo_org_date { get; set; }
-        public string jo_org_hrs { get; set; }
+        public string code_type { get; set; }
+        public string qty_consumed { get; set; }
+        public string file_code { get; set; }
         public string fq_name { get; set; }
-        public string priority_code { get; set; }
         public string file { get; set; }
+        public string type { get; set; }
+        public string jp_code { get; set; }
+        public string vessel_code { get; set; }
 
         public void BreakdownJobsInsPJO(BreakdownJobs BreakdownJobs)
 
@@ -85,7 +52,7 @@ namespace sqlBase
                                                                         )
                                      VALUES            (        '"   + BreakdownJobs.jo_code +
                                                                 "'," + BreakdownJobs.jp_code +
-                                                                "'," + BreakdownJobs.priority_st_code +
+                                                                "'," + BreakdownJobs.priority_code +
                                                                 "'," + BreakdownJobs.jo_title +
                                                                 "'," + BreakdownJobs.jo_description +
                                                                 "'," + BreakdownJobs.jo_status_code +
@@ -192,7 +159,12 @@ namespace sqlBase
             try
 
             {
-                string qry = @"UPDATE PURCHASE.LASTCODES  SET        TRANS_NO      =   '" + BreakdownJobs.trans_no +
+                object trans_noL = sq.ExecuteScalarOnSourceDB(" SELECT TRANS_NO FROM PURCHASE.LASTCODES WHERE P_VSLCODE = 'COMMON'  ");
+
+                object codeprefix = sq.ExecuteScalarOnSourceDB("SELECT  CODE_PREFIX from PURCHASE.SETUP");
+
+                string trans_no = codeprefix + "." + "0000000000" + trans_noL;
+                string qry = @"UPDATE PURCHASE.LASTCODES  SET        TRANS_NO      =   '" + trans_no +
                                                      "' WHERE        P_VSLCODE     =   'COMMON'";
                 DBOperations UI = new DBOperations();
                 int result = UI.OperationsOnSourceDB(qry);

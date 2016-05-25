@@ -23,6 +23,8 @@ namespace sqlBase
         public string aid_no             { get; set; }
         public string zone               { get; set; } // Now considering, the value coming from front end.
 
+        DBOperations db = new DBOperations();
+
         //Update query for PURCHASE.LASTCODES while save button click.
         public void SaveRequisitionUpd(Requisition Requisition)
 
@@ -89,18 +91,10 @@ namespace sqlBase
         {
             try
             {
-                //select querys for getting value of tp_code and dept_code.
-                string val = @" SELECT  TP_CODE 
-                                FROM    PURCHASE.IM_TYPE";
-                SqlBase_OleDb db = new SqlBase_OleDb(val);
-                DataTable tbl = db.GetTable();
-                string tp_code = tbl.Rows[0]["TP_CODE"].ToString();
+                //select querys for getting value for tp_code and dept_code.
+                object tp_code = db.ExecuteScalarOnSourceDB(" SELECT  TP_CODE FROM    PURCHASE.IM_TYPE");
 
-                string ans = @" SELECT  DEPT_CODE 
-                                FROM    PURCHASE.DEPARTMENT";
-                SqlBase_OleDb db1 = new SqlBase_OleDb(ans);
-                DataTable tbl1 = db.GetTable();
-                string dept_code = tbl.Rows[0]["DEPT_CODE"].ToString();
+                object dept_code = db.ExecuteScalarOnSourceDB(" SELECT  DEPT_CODE FROM    PURCHASE.DEPARTMENT");               
 
                 string qry = @"INSERT INTO PURCHASE.IND_HD             ( ZONE,	   
                                                                         ID_NO,
@@ -138,5 +132,9 @@ namespace sqlBase
                 Console.WriteLine("{ 0} Exception caught.", exc);
             }
         }
+        //public void SaveRequisition()
+        //{
+
+        //}
     }
 }

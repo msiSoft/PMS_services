@@ -48,6 +48,7 @@ namespace sqlBase
             {    
                 decimal rob_qty = Convert.ToDecimal(stock.rob_qty);
                 decimal physical_rob_entered = Convert.ToDecimal(stock.physical_rob_entered);
+
                 if (rob_qty > physical_rob_entered)
                 {
                     object trans_type_code = db.ExecuteScalarOnSourceDB("SELECT trans_type_code FROM purchase.trans_type WHERE prog_code = 'IS' AND updflag <> 'D'");
@@ -55,18 +56,25 @@ namespace sqlBase
                 else
                 {
                     object trans_type_code = db.ExecuteScalarOnSourceDB("SELECT trans_type_code FROM purchase.trans_type WHERE prog_code = 'PO' AND updflag <> 'D'");                    
-                }                
+                }    
+                            
                 object trans_noL = db.ExecuteScalarOnSourceDB(" SELECT TRANS_NO FROM PURCHASE.LASTCODES WHERE P_VSLCODE = 'COMMON'  ");
+
                 object codeprefix = db.ExecuteScalarOnSourceDB("SELECT  CODE_PREFIX from PURCHASE.SETUP");
+
                 string trans_no = codeprefix + "." + "0000000000" + trans_noL;
                 string qry1 = @"UPDATE purchase.lastcodes SET  TRANS_NO= trans_no WHERE p_vslcode = 'COMMON'";
                 DBOperations UI1 = new DBOperations();
                 int result1 = UI1.OperationsOnSourceDB(qry1);
+
                 string qry2 = @"UPDATE purchase.lastcodes SET ctrans_no = ctrans_no +1 WHERE	p_vslcode ='" + stock.vessel_code + "'" ;
                 DBOperations UI2 = new DBOperations();
                 int result2 = UI2.OperationsOnSourceDB(qry2);
+
                 object leadzero = db.ExecuteScalarOnSourceDB("select LEAD_ZEROES from pms.setup");
+
                 object nCLastTransNo = db.ExecuteScalarOnSourceDB("SELECT	ctrans_no FROM	purchase.lastcodes WHERE   p_vslcode = '" + stock.vessel_code + "'");
+
                 int c = Convert.ToString(trans_noL).Length;
                 string b="0";
                 int a = Convert.ToInt32(leadzero) - c;
@@ -75,8 +83,10 @@ namespace sqlBase
                     b = b + "0";
                 }
                 object sPrefixTR =db.ExecuteScalarOnSourceDB("select TR_PREFIX from pms.setup");
+
                 object sSuffixTR = db.ExecuteScalarOnSourceDB("select TR_SUFFIX from pms.setup");
-                string ctrans_no = "b" + sPrefixTR + nCLastTransNo + sSuffixTR;
+
+                string ctrans_no = b + sPrefixTR + nCLastTransNo + sSuffixTR;
 
                 string qry = @"INSERT INTO   PURCHASE.TRANS_HD (        VSLCODE, 
                                                                        TRANS_NO, 
@@ -112,7 +122,9 @@ namespace sqlBase
             try
             {
                 object trans_noL = db.ExecuteScalarOnSourceDB(" SELECT TRANS_NO FROM PURCHASE.LASTCODES WHERE P_VSLCODE = 'COMMON'  ");
+
                 object codeprefix = db.ExecuteScalarOnSourceDB("SELECT  CODE_PREFIX from PURCHASE.SETUP");
+
                 string trans_no = codeprefix + "." + "0000000000" + trans_noL;
                 decimal rob_qty = Convert.ToDecimal(stock.rob_qty);
                 decimal physical_rob_entered = Convert.ToDecimal(stock.physical_rob_entered);
