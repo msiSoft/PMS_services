@@ -377,6 +377,37 @@ namespace sqlBase
 
             }
         }
+        
+        public void GetJobOrder(string VSLCode) // To get all the job orders 
+        {
+            try
+            {
+                string qry = @"SELECT   JO_CODE          as jo_code,
+                                        CJO_CODE         as cjo_code,
+                                        EQ_CODE          as eq_code,
+                                        JO_TITLE         as jo_title,
+                                        JO_START_DT      as jo_start_date,
+                                        JO_END_DT        as jo_end_date,
+                                        CONDITION_BEFORE as condition_before,
+                                        CONDITION_AFTER  as condition_after,
+                                        RESP_CREW_NAME   as resp_crew_name,
+                                        PRIORITY_ST_CODE as priority_code,
+                                        JO_ST_CODE       as jo_status_code,                   
+                                        DE_AT            as data_entered_date,
+                                        DE_BY            as data_entered_by,
+                                        UPDFLAG          as is_updated_on_server 
+                                   FROM PMS.JOB_ORDER 
+                                   WHERE UPDFLAG<>  'D'
+                                   AND VSLCODE = " + VSLCode  +
+                                   " ORDER BY EQ_CODE";
+                SqlBase_OleDb db = new SqlBase_OleDb(qry);
+                DataTable tbl = db.GetTable();
 
+            }
+            catch (Exception exc)
+            {
+
+            }
+        }
     }
 }
