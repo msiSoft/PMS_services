@@ -33,6 +33,7 @@ namespace sqlBase
         public string jp_code { get; set; }
         public string vessel_code { get; set; }
 
+        DBOperations sq = new DBOperations();
         public void BreakdownJobsInsPJO(BreakdownJobs BreakdownJobs)
 
         {
