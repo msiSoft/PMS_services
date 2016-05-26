@@ -25,7 +25,7 @@ namespace sqlBase
 
         DBOperations db = new DBOperations();
 
-        //Update query for PURCHASE.LASTCODES while save button click.
+        //Updating ID_NO to PURCHASE.LASTCODES on save button click.
         public void SaveRequisitionUpd(Requisition Requisition)
 
         {
@@ -48,13 +48,8 @@ namespace sqlBase
         {
             try
             {
-                // select query for getting value of rob_qty.
-                string val = @" SELECT  ROB_QTY 
-                                FROM    PURCHASE.STOCK
-                                WHERE   IM_CODE ='" + Requisition.item_code ;
-                SqlBase_OleDb db = new SqlBase_OleDb(val);
-                DataTable tbl = db.GetTable();
-                string rob_qty = tbl.Rows[0]["ROB_QTY"].ToString();
+                // For getting value of rob_qty.                
+                object rob_qty = db.ExecuteScalarOnSourceDB(" SELECT  ROB_QTY FROM    PURCHASE.STOCK WHERE   IM_CODE ='" + Requisition.item_code);
 
                 string qry = @"INSERT INTO PURCHASE.IND_DT        ( ZONE, 
                                                                  VSLCODE, 
@@ -91,9 +86,8 @@ namespace sqlBase
         {
             try
             {
-                //select querys for getting value for tp_code and dept_code.
+                //For getting values of tp_code and dept_code.
                 object tp_code = db.ExecuteScalarOnSourceDB(" SELECT  TP_CODE FROM    PURCHASE.IM_TYPE");
-
                 object dept_code = db.ExecuteScalarOnSourceDB(" SELECT  DEPT_CODE FROM    PURCHASE.DEPARTMENT");               
 
                 string qry = @"INSERT INTO PURCHASE.IND_HD             ( ZONE,	   
@@ -131,10 +125,6 @@ namespace sqlBase
             {
                 Console.WriteLine("{ 0} Exception caught.", exc);
             }
-        }
-        //public void SaveRequisition()
-        //{
-
-        //}
+        }        
     }
 }

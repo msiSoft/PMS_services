@@ -79,6 +79,7 @@ namespace sqlBase
             }
         }
 
+        // To select PURCHASE.LASTCODES  info
         public void GetLastCodes(string p_vslcode)
         {
             try
@@ -104,7 +105,8 @@ namespace sqlBase
             }
         }
 
-        public void GetIndDt(string cc_code)
+        // To select PURCHASE.IND_DT  info
+        public void GetIndDt(string VSLCode)
         {
             try
             {
@@ -121,7 +123,7 @@ namespace sqlBase
                                                    CCM_CODE,	  
                                                     ORDER_NO                                                                                     
                                                         FROM    PURCHASE.IND_DT 
-                                                       WHERE    CC_CODE ='" + cc_code + "'";
+                                                       WHERE    UPDFLAG <>'D' AND VSLCODE=" + VSLCode;
                 SqlBase_OleDb db = new SqlBase_OleDb(qry);
                 DataTable tbl = db.GetTable();
             }
@@ -131,7 +133,8 @@ namespace sqlBase
             }
         }
 
-        public void GetIndHd(string cc_code)
+        //To select PURCHASE.IND_HD info
+        public void GetIndHd(string VSLCode)
         {
             try
             {
@@ -158,7 +161,7 @@ namespace sqlBase
                                                               ATTACHMENT,
                                                                   FROMOFF                                                                                    
                                                                      FROM    PURCHASE.IND_HD 
-                                                                    WHERE    VSLCODE='" + cc_code + "'";
+                                                                    WHERE    UPDFLAG <>'D' AND VSLCODE=" + VSLCode;
                 SqlBase_OleDb db = new SqlBase_OleDb(qry);
                 DataTable tbl = db.GetTable();
             }
@@ -168,7 +171,7 @@ namespace sqlBase
             }
         }
 
-
+        // To get Store info
         public void GetStoreItems()
         {
             try
@@ -195,7 +198,7 @@ namespace sqlBase
             }
         }
 
-
+        //To get Spare info
         public void GetSpareItems(string VSLCode)
         {
             try
@@ -224,6 +227,7 @@ namespace sqlBase
             }
         }
 
+        //To fetch Stock information
         public void GetStock(string VSLCode)
         {
             try
