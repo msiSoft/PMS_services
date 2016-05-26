@@ -23,7 +23,9 @@ namespace sqlBase
             Common MasterData = new Common();
             MasterData.GetAllVendorNames("400.0000000024", zone);// Get all the available vendors for the vessel
             //MasterData.GetJobOrder("400.0000000024"); // Get all the available job orders for the vessel
-           Purchase PR = new Purchase();
+            //MasterData.GetAllPOHdrDetails("400.0000000024", zone); // Get all the po hdr details for the vessel and zone 
+            //MasterData.GetAllPOItemDetails ("400.0000000024", zone); // Get all the po item details for the vessel and zone 
+            Purchase PR = new Purchase();
             PR.GetPONumbers("400.0000000024", zone); // Get all the PO numbers for the vessel
             PR.GetAllPODetails("400.0000000024", zone); // Get all the item details for the vessel
             ////PR.ReceiveGoods();

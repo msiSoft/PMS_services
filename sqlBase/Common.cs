@@ -413,5 +413,63 @@ namespace sqlBase
 
             }
         }
+
+        public void GetAllPOHdrDetails(string VSLCode, string Zone) // getting purchase details from PURCHASE.GRV_HD and PURCHASE.PO_HD corresponding to the vslcode  and  zone 
+        {
+            try
+            {
+                string qry = @"SELECT DISTINCT  PH.PO_NO   as po_number,
+								PH.CPO_NO  as cpo_number,
+								PH.VD_CODE as vd_code,
+								PH.PO_DATE as po_date,
+								GH.CHL_NO  as challan_number,
+								GH.GRV_DT  as receipt_date ,
+								GH.GRV_REM as remarks 
+								FROM PURCHASE.PO_HD PH 
+								LEFT JOIN PURCHASE.GRV_DT 
+								GD ON PH.PO_NO = GD.PO_NO
+								LEFT JOIN PURCHASE.GRV_HD GH 
+								ON GD.GRV_NO = GH.GRV_NO 
+								WHERE GH.VSLCODE= " + VSLCode +
+                        "AND GH.ZONE  ='" + Zone +
+                        "'AND GH.UPDFLAG <>'D'";
+                SqlBase_OleDb db = new SqlBase_OleDb(qry);
+                DataTable tbl = db.GetTable();
+
+            }
+            catch (Exception exc)
+            {
+
+            }
+        }
+
+        public void GetAllPOItemDetails(string VSLCode, string Zone) // getting item details from PURCHASE.ID_FINAL_DT and PURCHASE.GRV_DT corresponding to the vslcode  and  zone 
+        {
+            try
+            {
+                string qry = @"SELECT   I.PO_NO     as po_number,
+							I.IM_CODE   as item_code,
+							I.CODE_TYPE as code_type,
+							I.REQ_QTY   as requested_qty,
+							I.PO_IM_QTY as ordered_qty,
+							G.QTY_RECD  as received_qty,
+							G.QTY_ACPT  as accepted_qty
+							FROM PURCHASE.ID_FINAL_DT I 
+							JOIN PURCHASE.GRV_DT G
+							ON I.PO_NO=G.PO_NO 
+							AND I.IM_CODE=G.IM_CODE 
+							WHERE I.VSLCODE=" + VSLCode +
+                    "AND I.ZONE='" + Zone +
+                    "' AND I.UPDFLAG<>'D'";
+                SqlBase_OleDb db = new SqlBase_OleDb(qry);
+                DataTable tbl = db.GetTable();
+
+            }
+            catch (Exception exc)
+            {
+
+            }
+        }
+
     }
 }
