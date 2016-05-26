@@ -14,20 +14,11 @@ namespace sqlBase
         public string jo_title { get; set; }
         public string jo_description { get; set; }
         public string jo_start_date { get; set; }
-        public string jo_end_date { get; set; }
         public string jo_assigned_to { get; set; }
-        public string condition_before { get; set; }
-        public string condition_after { get; set; }
-        public string resp_crew_name { get; set; }
-        public string priority_code { get; set; }
         public string jo_status_code { get; set; }
         public string data_entered_by { get; set; }
         public string data_entered_date { get; set; }
-        public string item_code { get; set; }
-        public string code_type { get; set; }
-        public string qty_consumed { get; set; }
         public string file_code { get; set; }
-        public string fq_name { get; set; }
         public string file { get; set; }
         public string type { get; set; }
         public string jp_code { get; set; }
@@ -42,7 +33,6 @@ namespace sqlBase
             {
                 string qry = @"INSERT INTO   PMS.JOB_ORDER (         JO_CODE,
                                                                     JP_CODE,
-                                                                    PRIORITY_ST_CODE,
                                                                     JO_TITLE,	
                                                                     JO_DESC,
                                                                     JO_ST_CODE,
@@ -53,7 +43,6 @@ namespace sqlBase
                                                                         )
                                      VALUES            (        '"   + BreakdownJobs.jo_code +
                                                                 "'," + BreakdownJobs.jp_code +
-                                                                "'," + BreakdownJobs.priority_code +
                                                                 "'," + BreakdownJobs.jo_title +
                                                                 "'," + BreakdownJobs.jo_description +
                                                                 "'," + BreakdownJobs.jo_status_code +
@@ -121,39 +110,7 @@ namespace sqlBase
             }
         }
 
-        public void BreakdownJobsInsJS(BreakdownJobs BreakdownJobs)
-
-        {
-            try
-
-            {
-                string qry = @"INSERT INTO   PMS.JO_SPARES (                JO_CODE, 
-                                                                            IM_CODE, 
-                                                                          CODE_TYPE, 
-                                                                       QTY_CONSUMED,
-                                                                            VSLCODE, 
-                                                                              DE_BY, 
-                                                                              DE_AT,
-                                                                             UPDFLAG      )
-                                     VALUES                ('" + BreakdownJobs.jo_code +
-                                                        "'," + BreakdownJobs.item_code +
-                                                        "'," + BreakdownJobs.code_type +
-                                                        "'," + BreakdownJobs.qty_consumed + 
-                                                         "'," + BreakdownJobs.vessel_code +
-                                                        "'," + BreakdownJobs.data_entered_by +
-                                                        "'," + BreakdownJobs.data_entered_date +
-                                                        "', 'C')";
-
-                DBOperations UI = new DBOperations();
-                int result = UI.OperationsOnSourceDB(qry);
-            }
-            catch (Exception exc)
-
-            {
-                Console.WriteLine("{ 0} Exception caught.", exc);
-            }
-        }
-
+       
         public void BreakdownJobsUpdPL(BreakdownJobs BreakdownJobs)
 
         {
