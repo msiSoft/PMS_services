@@ -72,7 +72,7 @@ namespace sqlBase
                 //                     " AND P.ZONE='" + Zone +"'" ;
                 string qry = @"SELECT DISTINCT V.VD_CODE,
                                                CVD_CODE,
-                                               D_NAME
+                                               VD_NAME
                                       FROM PURCHASE.VEND_MF V,
                                            PURCHASE.PO_HD P
                                       WHERE V.VD_CODE=P.VD_CODE
