@@ -540,5 +540,30 @@ namespace sqlBase
             }
         }
 
+        public void GetFileInfo(string VSLCode) // getting file details from PMS.FILE_STORAGE corresponding to the vslcode .need to connect another schema "dbimage" 
+        {
+            try
+            {
+                string qry = @"SELECT FILE_CODE   as file_code,
+								      REF_CODE    as jo_code,
+								      FILENAME	  as file_name,
+								      FILE_TYPE   as file_type,
+								      FILELENGTH  as file_length,
+								      CONTENTS    as contents,
+                                      DE_BY	      as  data_entered_by,
+                                      DE_AT      as data_entered_date
+								FROM PMS.FILE_STORAGE 
+								WHERE VSLCODE= " + VSLCode ;
+                    
+                SqlBase_OleDb db = new SqlBase_OleDb(qry);
+                DataTable tbl = db.GetTable();
+
+            }
+            catch (Exception exc)
+            {
+
+            }
+        }
+
     }
 }
