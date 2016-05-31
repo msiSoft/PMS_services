@@ -256,15 +256,22 @@ namespace sqlBase
         {
             try
             {
+                //string qry = @"SELECT   IM_CODE as item_code,
+                //                          ROB_QTY as rob_qty,
+                //                      CODE_TYPE as code_type,                                             
+                //                               LAST_RECD_QTY,
+                //                                    TRANS_NO,
+                //                             TRANS_TYPE_CODE,
+                //                                     UPDFLAG,
+                //                                   MIN_STOCK,
+                //                                   MAX_STOCK,
+                //                    DE_BY as data_entered_by,
+                //                   DE_AT as data_entered_date
+                //                                         FROM    PURCHASE.STOCK
+                //                                        WHERE    UPDFLAG<>'D' AND VSLCODE=" + VSLCode;
                 string qry = @"SELECT   IM_CODE as item_code,
                                           ROB_QTY as rob_qty,
                                       CODE_TYPE as code_type,                                             
-                                               LAST_RECD_QTY,
-                                                    TRANS_NO,
-                                             TRANS_TYPE_CODE,
-                                                     UPDFLAG,
-                                                   MIN_STOCK,
-                                                   MAX_STOCK,
                                     DE_BY as data_entered_by,
                                    DE_AT as data_entered_date
                                                          FROM    PURCHASE.STOCK
