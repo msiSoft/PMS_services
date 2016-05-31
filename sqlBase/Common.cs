@@ -24,7 +24,7 @@ namespace sqlBase
 
             }
         }
-        //select Vessel info 
+        //select Status info 
         public void GetStatusInfo()
         {
             try
@@ -219,19 +219,27 @@ namespace sqlBase
         {
             try
             {
+                //string qry = @"SELECT   IM_CODE as item_code,  
+                //                                    CIM_CODE,
+                //                        IM_DESC as item_desc,
+                //                        IM_SPEC as item_spec,
+                //                                    SE2_CODE,
+                //                        IM_UNIT as item_unit,
+                //                                    MIN_STOC,
+                //                                    MAX_STOC,
+                //                      CODE_TYPE as code_type,
+                //                                     UPDFLAG,
+                //                          EQ_CODE as eq_code,
+                //                    DE_BY as data_entered_by,
+                //                   DE_AT as data_entered_date
+                //                                         FROM   PURCHASE.VSL_ITEM_MF 
+                //                                        WHERE   UPDFLAG<>'D' AND VSLCODE=" + VSLCode;
                 string qry = @"SELECT   IM_CODE as item_code,  
-                                                    CIM_CODE,
                                         IM_DESC as item_desc,
                                         IM_SPEC as item_spec,
-                                                    SE2_CODE,
                                         IM_UNIT as item_unit,
-                                                    MIN_STOC,
-                                                    MAX_STOC,
                                       CODE_TYPE as code_type,
-                                                     UPDFLAG,
-                                          EQ_CODE as eq_code,
-                                    DE_BY as data_entered_by,
-                                   DE_AT as data_entered_date
+                                          EQ_CODE as eq_code
                                                          FROM   PURCHASE.VSL_ITEM_MF 
                                                         WHERE   UPDFLAG<>'D' AND VSLCODE=" + VSLCode;
                 SqlBase_OleDb db = new SqlBase_OleDb(qry);
