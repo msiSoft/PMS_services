@@ -346,21 +346,31 @@ namespace sqlBase
         {
             try
             {
-                string qry = @"SELECT EQ_CODE as EQCode,
-                                      VSLCODE as VSLCode,
-                                  RH_PREVIOUS as RHPrevious,
-                                       RH_ADD as RHAdd,
-                                   READING_DT as ReadingDT,
-                                   READING_BY as ReadingBy,
-                                  AVG_PER_DAY as AVGPerDay,
-                                        DE_BY as DEBy,
-                                        DE_AT as DEAt,
-                                      UPDFLAG as UPDFlag,
-                                  LAST_RH_ADD as LastRHAdd,
-                              LAST_READING_DT as LastReadingDT,
-                              LAST_READING_BY as LastReadingBy,            
-                                     DELETEDT as DeleteDT
-                                         FROM PMS.RH_ENTRY 
+                //string qry = @"SELECT EQ_CODE as EQCode,
+                //                      VSLCODE as VSLCode,
+                //                  RH_PREVIOUS as RHPrevious,
+                //                       RH_ADD as RHAdd,
+                //                   READING_DT as ReadingDT,
+                //                   READING_BY as ReadingBy,
+                //                  AVG_PER_DAY as AVGPerDay,
+                //                        DE_BY as DEBy,
+                //                        DE_AT as DEAt,
+                //                      UPDFLAG as UPDFlag,
+                //                  LAST_RH_ADD as LastRHAdd,
+                //              LAST_READING_DT as LastReadingDT,
+                //              LAST_READING_BY as LastReadingBy,            
+                //                     DELETEDT as DeleteDT
+                //                         FROM PMS.RH_ENTRY 
+                //                        WHERE UPDFLAG<>'D' AND VSLCODE=" + VSLCode + " ORDER BY EQ_CODE";
+                string qry = @"SELECT EQ_CODE as eq_code,
+                                  RH_PREVIOUS as rh_previous,
+                                       RH_ADD as rh_add,
+                                       DE_BY as data_entered_by,
+                                       DE_AT as data_entered_date,
+                                 LAST_RH_ADD as last_rh_add,
+                             LAST_READING_DT as last_data_entered_date,
+                             LAST_READING_BY as last_data_entered_by
+                                                 FROM PMS.RH_ENTRY 
                                         WHERE UPDFLAG<>'D' AND VSLCODE=" + VSLCode + " ORDER BY EQ_CODE";
                 SqlBase_OleDb db = new SqlBase_OleDb(qry);
                 DataTable tbl = db.GetTable();
