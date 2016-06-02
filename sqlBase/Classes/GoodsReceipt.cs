@@ -13,7 +13,7 @@ namespace sqlBase.Classes
 
     public class PurchaseHdrObj
     {
-        public string ponumber { get; set; }
+        public string po_number { get; set; }
         public string vd_code { get; set; }
         public string challan_number { get; set; }
         public string receipt_date { get; set; }        //date
@@ -25,10 +25,10 @@ namespace sqlBase.Classes
 
     public class ItemsObj
     {
-        public string ponumber { get; set; }
+        public string po_number { get; set; }
         public string item_code  { get; set; }
         public string code_type { get; set; }
-        public decimal rcvd_qty { get; set; }
-        public decimal accptd_qty { get; set; }
+        public decimal received_qty { get; set; }
+        public decimal accepted_qty { get; set; }
     }
 }
