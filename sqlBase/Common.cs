@@ -88,22 +88,14 @@ namespace sqlBase
         }
 
         // To select PURCHASE.LASTCODES  info
-        public void GetLastCodes(string p_vslcode)
+        public void GetPurchaseLastCodes(string p_vslcode)
         {
             try
             {
-                string qry = @"SELECT       IM_CODE as item_code,
-                                                AID_NO as aid_no,
-                                                  ID_NO as id_no,
-                                                          GRV_NO,
-                                                         AGRV_NO,
-                                                       P_VSLCODE,
-                                                         EQ_CODE,
-                                                           EQ_NO,
-                                                        TRANS_NO,
-                                                        CTRANS_NO                                                                                    
-                                                             FROM    PURCHASE.LASTCODES 
-                                                            WHERE    P_VSLCODE='" + p_vslcode + "'";
+                string qry = @"SELECT      AID_NO as aid_no,
+                                            ID_NO as id_no,                                                                                    
+                                             FROM  PURCHASE.LASTCODES 
+                                            WHERE  P_VSLCODE='" + p_vslcode + "' OR P_VSLCODE='COMMON'";
                 SqlBase_OleDb db = new SqlBase_OleDb(qry);
                 DataTable tbl = db.GetTable();
             }
@@ -113,6 +105,24 @@ namespace sqlBase
             }
         }
 
+        // To select PMS.LASTCODES  info
+        public void GetPmsLastCodes(string vslcode)
+        {
+            try
+            {
+                string qry = @"SELECT      JO_CODE as jo_code,
+                                          CJO_CODE as cjo_code,
+                                         FILE_CODE as file_code                                                                                   
+                                              FROM PMS.LASTCODES
+                                             WHERE PMS_VSLCODE='" + vslcode + "' OR PMS_VSLCODE='COMMON'";
+                SqlBase_OleDb db = new SqlBase_OleDb(qry);
+                DataTable tbl = db.GetTable();
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine("{0} Exception caught.", exc);
+            }
+        }
         // To select PURCHASE.IND_DT  info
         public void GetIndDt(string VSLCode)
         {
