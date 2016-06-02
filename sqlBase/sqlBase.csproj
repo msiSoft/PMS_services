@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BreakdownJobs.cs" />
+    <Compile Include="Classes\GoodsReceipt.cs" />
     <Compile Include="Classes\POFinal.cs" />
     <Compile Include="Classes\POHdr.cs" />
     <Compile Include="Common.cs" />
