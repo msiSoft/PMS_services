@@ -40,7 +40,7 @@ namespace sqlBase
         DBOperations sq = new DBOperations();
 
         //Upadating job_plan table
-        public void WorksDoneUpdJP (WorksDone WorksDone)
+        public void SetUpdateJobPlan(WorksDone WorksDone)
 
         {
             try
@@ -103,7 +103,7 @@ namespace sqlBase
         }
 
         //Updating job_order table 
-        public void WorksDoneUpdJO(WorksDone WorksDone)
+        public void SetUpdateJobOrder(WorksDone WorksDone)
 
         {
             try
@@ -136,7 +136,7 @@ namespace sqlBase
         }
 
         // Inserting to file_storage if having any attachments 
-        public void WorksDoneInsFS(WorksDone WorksDone)
+        public void SetInsertFileStorage(WorksDone WorksDone)
 
         {
             try
@@ -173,7 +173,7 @@ namespace sqlBase
         }
 
         // Inserting to jo_spares if spare selected
-        public void WorksDoneInsJS(WorksDone WorksDone)
+        public void SetInsertJobOrderSpares(WorksDone WorksDone)
 
         {
             try
@@ -206,7 +206,7 @@ namespace sqlBase
         }
 
         // Update on Stock table
-        public void WorksDoneUpdPS(WorksDone WorksDone)
+        public void SetUpdatePurchaseStock(WorksDone WorksDone)
 
         {
             try
@@ -232,7 +232,7 @@ namespace sqlBase
         }
 
         // Update on lastcodes
-        public void WorksDoneUpdPL(WorksDone WorksDone)
+        public void SetUpdatePurchaseLastCodes(WorksDone WorksDone)
 
         {
             try
@@ -254,7 +254,7 @@ namespace sqlBase
         }
 
         // Inserting to trans_hd
-        public void WorksDoneInsPTHD(WorksDone WorksDone)
+        public void SetInsertPurchaseTransHeader(WorksDone WorksDone)
 
         {
             try
@@ -313,7 +313,7 @@ namespace sqlBase
         }
 
         // Inserting to trans_dt
-        public void WorksDoneInsPTDT(WorksDone WorksDone)
+        public void SetInsertPurchaseTransDetail(WorksDone WorksDone)
 
         {
             try
@@ -350,7 +350,7 @@ namespace sqlBase
         }
 
         // Inserting to job_order table
-        public void WorksDoneInsPJO(WorksDone WorksDone)
+        public void SetInsertJobOrder(WorksDone WorksDone)
 
         {
             try
