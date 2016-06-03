@@ -91,9 +91,9 @@ namespace sqlBase
             //UPDS.trans_rem = "";
             //UPDS.code_type = "S";
 
-            //UPDS.SaveStockUpd(UPDS);
-            //UPDS.SaveStockInsertHd(UPDS);
-            //UPDS.SaveStockInsertTd(UPDS);
+            //UPDS.SetUpdatePurchaseStock(UPDS);
+            //UPDS.SetInsertPurchaseTransHeader(UPDS);
+            //UPDS.SetInsertPurchaseTransDetail(UPDS);
 
             // Requisition
             // RequisitionSelect RS = new RequisitionSelect();
