@@ -18,7 +18,7 @@ namespace sqlBase.Classes
         public string data_entered_by { get; set; }
         public bool is_updated_on_server { get; set; }
 
-        public void SavePurchaseHdr(string vslcode, string grvno_auto, string cgrv_no, POHdr goodsReceivedHdr,string Zone)
+        public void SetInsertPurchaseGoodsRecieptHeader(string vslcode, string grvno_auto, string cgrv_no, POHdr goodsReceivedHdr,string Zone)
         {
             string qry = @"INSERT INTO PURCHASE.GRV_HD 
                                                         (
@@ -40,7 +40,7 @@ namespace sqlBase.Classes
 
         }
 
-        public void UpdPOHdr(string vslcode, POHdr goodsReceivedHdr,string Zone)
+        public void SetUpdatePurchaseOrderHeader(string vslcode, POHdr goodsReceivedHdr,string Zone)
         {
             string qry = @" UPDATE PURCHASE.PO_HD SET
                                                     NO_GRV=  @NULLVALUE(NO_GRV,0)+1 

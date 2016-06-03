@@ -108,9 +108,9 @@ namespace sqlBase
             //RS.eq_number = " 50000";
 
             //RS.SaveRequisitionUpd(RS);
-            RecieveGoods();
+            SaveGoodReceipt();
         }
-        public static void RecieveGoods()
+        public static void SaveGoodReceipt()
         {
             KeyGenForInsert();
 
@@ -128,8 +128,8 @@ namespace sqlBase
             goodsReceivedHdr.data_entered_date = "15-MAR-2016";
             goodsReceivedHdr.data_entered_by = "SBN";
             goodsReceivedHdr.is_updated_on_server = true;
-            //goodsReceivedHdr.SavePurchaseHdr(vslcode, grvno_auto, cgrv_no, goodsReceivedHdr,zone);
-            //goodsReceivedHdr.UpdPOHdr(vslcode, goodsReceivedHdr, zone);
+            //goodsReceivedHdr.SetInsertPurchaseGoodsRecieptHeader(vslcode, grvno_auto, cgrv_no, goodsReceivedHdr,zone);
+            //goodsReceivedHdr.SetUpdatePurchaseOrderHeader(vslcode, goodsReceivedHdr, zone);
 
             //Declaring an object of purchase header class 
             POFinal goodsReceivedtl = new POFinal();
@@ -143,10 +143,10 @@ namespace sqlBase
             goodsReceivedtl.data_entered_date = "15-MAR-2016";
             goodsReceivedtl.data_entered_by = "SBN";
             goodsReceivedtl.is_updated_on_server = true;
-            //goodsReceivedtl.SavePurchaseDtl(vslcode, grvno_auto, goodsReceivedtl, goodsReceivedHdr.vd_code,zone );
-            //goodsReceivedtl.UpdClosedFlag(goodsReceivedtl, zone);
-            //goodsReceivedtl.UpdClosedFlagInPurchaseDtl(goodsReceivedtl, zone);
-            goodsReceivedtl.UpdStock(goodsReceivedtl, vslcode);
+            //goodsReceivedtl.SetInsertPurchaseGoodsRecieptDetail(vslcode, grvno_auto, goodsReceivedtl, goodsReceivedHdr.vd_code,zone );
+            //goodsReceivedtl.SetUpdatePurchaseFinalDetail(goodsReceivedtl, zone);
+            //goodsReceivedtl.SetUpdatePurchaseOrderDetail(goodsReceivedtl, zone);
+            goodsReceivedtl.SetUpdatePurchaseStock(goodsReceivedtl, vslcode);
             
 
 

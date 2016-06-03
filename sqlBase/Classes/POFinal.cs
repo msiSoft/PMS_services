@@ -21,7 +21,7 @@ namespace sqlBase.Classes
         public bool is_updated_on_server { get; set; }
 
 
-        public void SavePurchaseDtl(string vslcode, string grvno_auto, POFinal goodsReceivedtl, string vendorcode,string zone)
+        public void SetInsertPurchaseGoodsRecieptDetail(string vslcode, string grvno_auto, POFinal goodsReceivedtl, string vendorcode,string zone)
         {
             string qry = @"INSERT INTO PURCHASE.GRV_DT 
                                                         ( 
@@ -41,7 +41,7 @@ namespace sqlBase.Classes
             int result = DB.OperationsOnSourceDB(qry);
         }
 
-        public void UpdClosedFlag(POFinal goodsReceivedtl,string zone)
+        public void SetUpdatePurchaseFinalDetail(POFinal goodsReceivedtl,string zone)
         {
             int recd_qty = 0; 
             int itm_qty=0;
@@ -86,7 +86,7 @@ namespace sqlBase.Classes
             int result = DB.OperationsOnSourceDB(updqry);
         }
 
-        public void UpdClosedFlagInPurchaseDtl(POFinal goodsReceivedtl, string zone)
+        public void SetUpdatePurchaseOrderDetail(POFinal goodsReceivedtl, string zone)
         {
             int recd_qty = 0;
             int itm_qty = 0;
@@ -132,7 +132,7 @@ namespace sqlBase.Classes
             int result = DB.OperationsOnSourceDB(updqry);
         }
 
-        public void UpdStock(POFinal goodsReceivedtl, string vslcode)
+        public void SetUpdatePurchaseStock(POFinal goodsReceivedtl, string vslcode)
         {
             string dt = DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss");
             double amt = 0.00;
