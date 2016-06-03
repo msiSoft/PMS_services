@@ -107,7 +107,7 @@ namespace sqlBase
             //RS.id_no = "2";
             //RS.eq_number = " 50000";
 
-            //RS.SaveRequisitionUpd(RS);
+            //RS.SetUpdatePurchaseLastCodeIdNumber(RS);
             SaveGoodReceipt();
         }
         public static void SaveGoodReceipt()

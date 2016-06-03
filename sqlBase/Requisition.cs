@@ -26,7 +26,7 @@ namespace sqlBase
         DBOperations db = new DBOperations();
 
         //Updating ID_NO to PURCHASE.LASTCODES on save button click.
-        public void SaveRequisitionUpd(Requisition Requisition)
+        public void SetUpdatePurchaseLastCodeIdNumber(Requisition Requisition)
 
         {
             try
@@ -43,7 +43,7 @@ namespace sqlBase
         }
 
         //Insert query for PURCHASE.IND_DT while save button click.
-        public void SaveRequisitionInsrtDt(Requisition Requisition)
+        public void SetInsertPurchaseDetail(Requisition Requisition)
 
         {
             try
@@ -81,7 +81,7 @@ namespace sqlBase
         }
 
         //Insert query for PURCHASE.IND_HD while save button click.
-        public void SaveRequisitionInsrtHd(Requisition Requisition)
+        public void SetInsertPurchaseHeader(Requisition Requisition)
 
         {
             try
