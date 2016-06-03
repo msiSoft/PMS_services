@@ -20,7 +20,7 @@ namespace sqlBase
         DBOperations db = new DBOperations();
 
         //Updating ROB_QTY to PURCHASE.STOCK .
-        public void SaveStockUpd(TakeStock stock)
+        public void SetUpdatePurchaseStock(TakeStock stock)
 
         {
             try
@@ -41,7 +41,7 @@ namespace sqlBase
         }
 
         //Inserting  values to PURCHASE.TRANS_HD table
-        public void SaveStockInsertHd(TakeStock stock)
+        public void SetInsertPurchaseTransHeader(TakeStock stock)
 
         {          
             try
@@ -114,7 +114,7 @@ namespace sqlBase
         }
 
         //Inserting  values to PURCHASE.TRANS_TD table
-        public void SaveStockInsertTd(TakeStock stock)
+        public void SetInsertPurchaseTransDetail(TakeStock stock)
 
         {
             try
