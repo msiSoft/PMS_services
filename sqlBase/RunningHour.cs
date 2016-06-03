@@ -27,13 +27,13 @@ namespace sqlBase
 
 
         /*Insert or update Running Hour in running hour related tables*/
-        public void SetRH(RunningHour RH)
+        public void SetRHEntry(RunningHour RH)
         {
             try
             {
-                decimal avgPerDay = SaveInRHEntry(RH);
-                SetRHInEquipment(RH);
-                SetJobOrder(RH, avgPerDay);
+                decimal avgPerDay = SetInsertUpdateRHEntry(RH);
+                SetUpdateRhPresentEquipment(RH);
+                SetUpdateJobOrderAndJobPlan(RH, avgPerDay);
             }
             catch (Exception exc)
             {
@@ -41,7 +41,7 @@ namespace sqlBase
             }
         }
         /*Insert or Update values in PMS.RH_ENTRY table*/
-        public decimal SaveInRHEntry(RunningHour RH)
+        public decimal SetInsertUpdateRHEntry(RunningHour RH)
         {
             decimal avgPerDay;
 
@@ -49,7 +49,7 @@ namespace sqlBase
             object avgDailyHrs = db.ExecuteScalarOnSourceDB("SELECT AVG_DAILY_HRS FROM PMS.SETUP");
             decimal setUpAvgDailyHrs = Convert.ToDecimal(avgDailyHrs != null ? avgDailyHrs : 0);
 
-            if (GetEquipmentDetails(RH.eq_code) <= 0)
+            if (GetEquipmentRhEntryCount(RH.eq_code) <= 0)
             {
                 avgPerDay = setUpAvgDailyHrs;
                 string qry = @"INSERT INTO PMS.RH_ENTRY (VSLCODE, 
@@ -116,7 +116,7 @@ namespace sqlBase
             return avgPerDay;
         }
         /*Get equipment details w.r.t EQ_CODE*/
-        public long GetEquipmentDetails(string EQCode)
+        public long GetEquipmentRhEntryCount(string EQCode)
         {
             long rowCount = 0;
             try
@@ -134,7 +134,7 @@ namespace sqlBase
             return rowCount;
         }
         /*Insert or update Running Hour in running hour related tables*/
-        public void SaveRHHistory(RunningHour RH)
+        public void SaveRHEntryLog(RunningHour RH)
         {
             try
             {
@@ -172,7 +172,7 @@ namespace sqlBase
             }
         }
         /*Update current RH in Equipment table*/
-        public void SetRHInEquipment(RunningHour RH)
+        public void SetUpdateRhPresentEquipment(RunningHour RH)
         {
             try
             {
@@ -213,7 +213,7 @@ namespace sqlBase
             return dr;
         }
         /*Update current RH in Equipment table*/
-        public void SetJobOrder(RunningHour RH, decimal avgPerDay)
+        public void SetUpdateJobOrderAndJobPlan(RunningHour RH, decimal avgPerDay)
         {
             try
             {
