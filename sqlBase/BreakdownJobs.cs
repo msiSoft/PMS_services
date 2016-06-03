@@ -27,7 +27,7 @@ namespace sqlBase
         DBOperations sq = new DBOperations();
 
         //Inserting into job_order table
-        public void BreakdownJobsInsPJO(BreakdownJobs BreakdownJobs)
+        public void SetInsertJobOrder(BreakdownJobs BreakdownJobs)
 
         {
             try
@@ -60,7 +60,7 @@ namespace sqlBase
         }
 
         //Insert to file_storage
-        public void BreakdownJobsInsPFS(BreakdownJobs BreakdownJobs)
+        public void SetInsertFileStorage(BreakdownJobs BreakdownJobs)
 
         {
             try
@@ -89,7 +89,7 @@ namespace sqlBase
         }
 
         //Updating to job_order table
-        public void BreakdownJobdUpdPJO(BreakdownJobs BreakdownJobs)
+        public void SetUpdateJobOrderDrawingExist(BreakdownJobs BreakdownJobs)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace sqlBase
         }
 
        //Updating lastcodes table
-        public void BreakdownJobsUpdPL(BreakdownJobs BreakdownJobs)
+        public void SetUpdateLastCodesTransNumber(BreakdownJobs BreakdownJobs)
 
         {
             try
